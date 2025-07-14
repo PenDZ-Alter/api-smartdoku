@@ -1,0 +1,20 @@
+{
+  "name": "api-pensudis",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@prisma/client": "^6.11.1",
+    "@types/bun": "latest",
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^5.0.3",
+    "nodemon": "^3.1.10"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "prisma": "^6.11.1"
+  }
+}
