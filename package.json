@@ -2,19 +2,26 @@
   "name": "api-pensudis",
   "module": "src/index.ts",
   "type": "module",
+  "scripts": {
+    "dev": "bun src/index.ts"
+  },
   "devDependencies": {
-    "@prisma/client": "^6.11.1",
+    "@prisma/client": "^6.12.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/bun": "latest",
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "nodemon": "^3.1.10"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
-    "prisma": "^6.11.1"
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^6.12.0"
   }
 }
