@@ -13,3 +13,103 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id            Int     @id @default(autoincrement())
+  name          String
+  username      String  
+  email         String  @unique
+  address       String  @db.Text
+  password      String
+  phone_number  BigInt
+  role          Role   @default(USER)
+}
+
+model DataSurat {
+  id                Int         @id @default(autoincrement())
+  nama_surat        String    
+  tanggal_diterima  DateTime    @db.Date
+  tanggal_surat     DateTime    @db.Date
+  kode              String      @unique
+  no_agenda         String      @unique
+  no_surat          String      @unique
+  hal               String      @db.Text
+  tanggal_waktu     DateTime
+  tempat            String
+  disposisi         Disposisi
+  index             String?
+  pengolah          String
+  sifat             String?
+  link_surat        String?
+  link_scan         String?
+  disp_1            DateTime    @db.Date
+  disp_2            DateTime    @db.Date
+  disp_3            DateTime?   @db.Date
+  disp_4            DateTime?   @db.Date
+  disp_lanjut       String?
+  tindak_lanjut_1   DateTime?   @db.Date
+  tindak_lanjut_2   DateTime?   @db.Date
+  tindak_lanjut_3   DateTime?   @db.Date
+  tindak_lanjut_4   DateTime?   @db.Date
+  tindak_lanjut_5   DateTime?   @db.Date
+  status            Status?
+  dok_final         String?
+  dok_dikirim       DateTime?   @db.Date
+  tanda_terima      DateTime?   @db.Date
+
+  surat_keluar      SuratKeluar[]
+}
+
+model SuratKeluar {
+  id                Int         @id @default(autoincrement())
+  kode              String      @unique
+  klasifikasi       String
+  no_register       String      @unique
+  tujuan_surat      String?
+  perihal           String
+  tanggal_surat     DateTime    @db.Date
+  akses_arsip       AksesArsip
+  pengolah          Disposisi
+  pembuat           String?
+  catatan           String?
+  link_surat        String?
+  koreksi_1         String?
+  koreksi_2         String?
+  koreksi_3         String?
+  koreksi_4         String?
+  koreksi_5         String?
+  status            Status?
+
+  kode_surat        DataSurat   @relation(fields: [kode], references: [kode])
+}
+
+enum Disposisi {
+  PRPB
+  Perumahan
+  Permukiman
+  Sekretariat
+  UPT_Taman
+  UPT_PALD
+  Renvapor
+  UKP
+}
+
+enum Status {
+  Selesai
+  Belum
+  Proses
+}
+
+enum AksesArsip {
+  Terbuka
+  Tertutup
+}
+
+enum DispLanjutan {
+  RUMAH_SWADAYA   @map("Rumah Swadaya")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
