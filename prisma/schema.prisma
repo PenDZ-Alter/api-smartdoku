@@ -19,6 +19,7 @@ model User {
   name          String
   username      String  
   email         String  @unique
+  address       String  @db.Text
   password      String
   phone_number  BigInt
 }
@@ -31,7 +32,7 @@ model DataSurat {
   kode              String      @unique
   no_agenda         String      @unique
   no_surat          String      @unique
-  hal               String
+  hal               String      @db.Text
   tanggal_waktu     DateTime
   tempat            String
   disposisi         Disposisi
@@ -101,4 +102,8 @@ enum Status {
 enum AksesArsip {
   Terbuka
   Tertutup
+}
+
+enum DispLanjutan {
+  RUMAH_SWADAYA   @map("Rumah Swadaya")
 }
