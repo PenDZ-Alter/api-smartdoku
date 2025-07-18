@@ -3,7 +3,14 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun src/index.ts"
+    "dev": "bun src/index.ts --env=local",
+    "prod": "bun src/index.ts --env=prod",
+    "debug": "bun src/index.ts --env=local --debug",
+    "prisma dev": "bun prisma migrate dev --name update --env-file=.env.local",
+    "prisma prod": "bun prisma migrate dev --name update-prod --env-file=.env.production",
+    "prisma deploy": "bun prisma migrate deploy",
+    "prisma reset": "bun prisma reset",
+    "generate": "bun prisma generate"
   },
   "devDependencies": {
     "@prisma/client": "^6.12.0",
@@ -12,6 +19,7 @@
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/minimist": "^1.2.5",
     "nodemon": "^3.1.10"
   },
   "peerDependencies": {
@@ -22,6 +30,7 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "minimist": "^1.2.8",
     "prisma": "^6.12.0"
   }
 }
