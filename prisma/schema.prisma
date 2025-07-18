@@ -22,6 +22,7 @@ model User {
   address       String  @db.Text
   password      String
   phone_number  BigInt
+  role          Role   @default(USER)
 }
 
 model DataSurat {
@@ -106,4 +107,9 @@ enum AksesArsip {
 
 enum DispLanjutan {
   RUMAH_SWADAYA   @map("Rumah Swadaya")
+}
+
+enum Role {
+  USER
+  ADMIN
 }
