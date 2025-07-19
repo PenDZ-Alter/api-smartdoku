@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun src/index.ts --env=local",
-    "prod": "bun src/index.ts --env=prod",
+    "prod": "bun src/index.ts --env=production",
     "debug": "bun src/index.ts --env=local --debug",
     "prisma_dev": "bun prisma migrate dev --name update --schema=./prisma/schema.prisma",
     "prisma_prod": "bun prisma migrate dev --name update-prod --schema=./prisma/schema.prisma",
