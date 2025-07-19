@@ -22,7 +22,7 @@ model User {
   address       String  @db.Text
   password      String
   phone_number  BigInt
-  role          Role   @default(USER)
+  role          Role    @default(USER)
 }
 
 model DataSurat {
@@ -46,12 +46,17 @@ model DataSurat {
   disp_2            DateTime    @db.Date
   disp_3            DateTime?   @db.Date
   disp_4            DateTime?   @db.Date
+  disp_1_notes      String?     @db.Text
+  disp_2_notes      String?     @db.Text
+  disp_3_notes      String?     @db.Text
+  disp_4_notes      String?     @db.Text
   disp_lanjut       String?
   tindak_lanjut_1   DateTime?   @db.Date
   tindak_lanjut_2   DateTime?   @db.Date
   tindak_lanjut_3   DateTime?   @db.Date
-  tindak_lanjut_4   DateTime?   @db.Date
-  tindak_lanjut_5   DateTime?   @db.Date
+  tl_notes_1        String?     @db.Text
+  tl_notes_2        String?     @db.Text
+  tl_notes_3        String?     @db.Text
   status            Status?
   dok_final         String?
   dok_dikirim       DateTime?   @db.Date
@@ -76,8 +81,6 @@ model SuratKeluar {
   koreksi_1         String?
   koreksi_2         String?
   koreksi_3         String?
-  koreksi_4         String?
-  koreksi_5         String?
   status            Status?
 
   kode_surat        DataSurat   @relation(fields: [kode], references: [kode])
@@ -112,4 +115,5 @@ enum DispLanjutan {
 enum Role {
   USER
   ADMIN
+  SUPERADMIN
 }

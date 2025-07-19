@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma";
+import { PrismaClient, Role } from "../generated/prisma";
 
 let db: PrismaClient;
 
@@ -12,4 +12,4 @@ if (!global.__db) {
 
 db = global.__db;
 
-export { db };
+export { db, Role };
