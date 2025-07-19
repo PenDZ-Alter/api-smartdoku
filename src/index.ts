@@ -16,7 +16,7 @@ if (CLI_ARGS.debug) app.use(logger);
 app.use('/auth', authRoutes);
 
 app.get('/', async (req, res) => {
-  res.send("Hello, this is API for Pensudis!!");
+  res.send("API is Active!!");
 });
 
 if (CLI_ARGS.debug) {
