@@ -6,9 +6,9 @@
     "dev": "bun src/index.ts --env=local",
     "prod": "bun src/index.ts --env=prod",
     "debug": "bun src/index.ts --env=local --debug",
-    "prisma_dev": "bun prisma migrate dev --name update",
-    "prisma_prod": "bun prisma migrate dev --name update-prod",
-    "prisma_deploy": "bun prisma migrate deploy",
+    "prisma_dev": "bun prisma migrate dev --name update --schema=./prisma/schema.prisma",
+    "prisma_prod": "bun prisma migrate dev --name update-prod --schema=./prisma/schema.prisma",
+    "prisma_deploy": "bun prisma migrate deploy --schema=./prisma/schema.prisma",
     "prisma_reset": "bun prisma migrate reset",
     "generate": "bun prisma generate"
   },
