@@ -1,0 +1,10 @@
+enum Disposisi {
+  PRPB
+  Perumahan
+  Permukiman
+  Sekretariat
+  UPT_Taman
+  UPT_PALD
+  Renvapor
+  UKP
+}

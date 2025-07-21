@@ -2,6 +2,9 @@
   "name": "api-pensudis",
   "module": "src/index.ts",
   "type": "module",
+  "prisma": {
+    "schema": "./prisma"
+  },
   "scripts": {
     "dev": "bun src/index.ts --env=local",
     "prod": "bun src/index.ts --env=production",

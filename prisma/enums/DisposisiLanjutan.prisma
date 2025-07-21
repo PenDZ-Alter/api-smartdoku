@@ -1,0 +1,3 @@
+enum DispLanjutan {
+  RUMAH_SWADAYA   @map("Rumah Swadaya")
+}
