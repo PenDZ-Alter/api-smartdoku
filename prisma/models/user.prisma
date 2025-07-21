@@ -1,10 +1,11 @@
 model User {
-  id            Int     @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   name          String
   username      String  
-  email         String  @unique
-  address       String  @db.Text
+  email         String    @unique
+  address       String?   @db.Text
   password      String
-  phone_number  BigInt
-  role          Role    @default(USER)
+  bidang        Bidang
+  phone_number  BigInt?
+  role          Role      @default(USER)
 }
