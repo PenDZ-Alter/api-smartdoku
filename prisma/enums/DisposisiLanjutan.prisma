@@ -1,3 +1,13 @@
 enum DispLanjutan {
-  RUMAH_SWADAYA   @map("Rumah Swadaya")
+  Rumah_UKK             @map("Rumah umum khusus dan komersial")
+  Rumah_Swadaya         @map("Rumah Swadaya")
+  Pengendalian_PRB      @map("Pengendalian perumahan ruang dan bangunan")
+  Pengembangan_PAM      @map("Pengembangan Prasarana air minum")
+  PLD                   @map("Penganganan Limbah Domestik")
+  Prasarana_Lingkungan  @map("Prasarana Lingkungan")
+  PTR                   @map("Perencanaan tata ruang")
+  PPB                   @map("Penyediaan dan Penataan bangunan")
+  PRB                   @map("Pemanfaatan ruang dan bangunan")
+  Renvapor
+  UKP                   @map("Umum keuangan dan kepegawaian")
 }
