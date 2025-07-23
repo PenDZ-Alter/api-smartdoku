@@ -24,7 +24,17 @@ router.post('/register', async (req: Request, res: Response) => {
         bidang: bidang
       }
     });
-    res.json({ message: 'User Registered!', user: { id: user.id, name: user.name, username: user.username, email: user.email, address: user.address, phone: user.phone_number?.toString() } });
+    res.json({ 
+      message: 'User Registered!', 
+      user: { 
+        id: user.id, 
+        name: user.name, 
+        username: user.username, 
+        email: user.email, 
+        address: user.address, 
+        phone: user.phone_number?.toString() 
+      } 
+    });
   } catch (err) {
     res.status(400).json({ error: 'Email already exists' });
   }
