@@ -5,7 +5,7 @@ model User {
   email         String    @unique
   address       String?   @db.Text
   password      String
-  bidang        Bidang
+  bidang        Bidang?
   phone_number  BigInt?
   role          Role      @default(USER)
 }
