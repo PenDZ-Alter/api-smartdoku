@@ -15,6 +15,7 @@ model SuratKeluar {
   koreksi_2         String?
   koreksi_3         String?
   status            Status?
+  timestamp         DateTime
 
   kode_surat        DataSurat   @relation(fields: [kode], references: [kode])
 }
