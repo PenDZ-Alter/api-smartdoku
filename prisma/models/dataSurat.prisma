@@ -1,5 +1,6 @@
 model DataSurat {
   id                Int         @id @default(autoincrement())
+  nomor_urut        Int
   nama_surat        String    
   tanggal_diterima  DateTime    @db.Date
   tanggal_surat     DateTime    @db.Date
@@ -35,6 +36,4 @@ model DataSurat {
   dok_dikirim       DateTime?   @db.Date
   tanda_terima      DateTime?   @db.Date
   timestamp         DateTime
-
-  surat_keluar      SuratKeluar[]
 }

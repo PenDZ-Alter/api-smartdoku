@@ -1,5 +1,6 @@
 model SuratKeluar {
   id                Int         @id @default(autoincrement())
+  nomor_urut        Int
   kode              String      @unique
   klasifikasi       String
   no_register       String      @unique
@@ -16,6 +17,4 @@ model SuratKeluar {
   koreksi_3         String?
   status            Status?
   timestamp         DateTime
-
-  kode_surat        DataSurat   @relation(fields: [kode], references: [kode])
 }
