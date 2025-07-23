@@ -40,7 +40,16 @@ router.post('/login', async (req: Request, res: Response) => {
   if (!valid) return res.status(401).json({ message: "Wrong Password!" });
 
   const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '30m' });
-  res.json({ name: user.name, username: user.username, email: user.email, bidang: user.bidang, role: user.role, token: token });
+  res.json({ 
+    user : {
+      name: user.name, 
+      username: user.username, 
+      email: user.email, 
+      bidang: user.bidang, 
+      role: user.role, 
+    },
+    token: token 
+  });
 });
 
 export default router;
