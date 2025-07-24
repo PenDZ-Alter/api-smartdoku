@@ -1,14 +1,15 @@
 model DataSurat {
   id                Int         @id @default(autoincrement())
   nomor_urut        Int
-  nama_surat        String    
+  nama_surat        String      @db.Text
   tanggal_diterima  DateTime    @db.Date
   tanggal_surat     DateTime    @db.Date
   kode              String      @unique
   no_agenda         String      @unique
   no_surat          String      @unique
   hal               String      @db.Text
-  tanggal_waktu     DateTime
+  tanggal           DateTime    @db.Date
+  waktu             DateTime    @db.Time
   tempat            String
   disposisi         Disposisi
   index             String?
