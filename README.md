@@ -1,5 +1,5 @@
-# api-pensudis
-An API Endpoint for DPKPCK to manage apps for PENSUDIS.
+# api-smartdoku
+An API Endpoint for DPKPCK to manage apps for SmartDoku.
 
 ## Tech Stack
 - Express.js
