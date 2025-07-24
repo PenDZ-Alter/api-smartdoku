@@ -1,4 +1,4 @@
-import { PrismaClient, Role, Bidang } from "../generated/prisma";
+import { PrismaClient, Role, Bidang } from "../@generated/prisma";
 
 let db: PrismaClient;
 
