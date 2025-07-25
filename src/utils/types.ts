@@ -1,4 +1,4 @@
-import { Bidang, Role, Disposisi, Status, AksesArsip } from '../utils/db.server';
+import { Bidang, Role, Disposisi, Status, AksesArsip, DispLanjutan } from '../utils/db.server';
 
 export type User = {
   id: number,
@@ -39,7 +39,7 @@ export type DataSurat = {
   disp_2_notes: string | null,
   disp_3_notes: string | null,
   disp_4_notes: string | null,
-  disp_lanjut: string | null,
+  disp_lanjut: DispLanjutan | null,
   tindak_lanjut_1: Date | null,
   tindak_lanjut_2: Date | null,
   tindak_lanjut_3: Date | null,
