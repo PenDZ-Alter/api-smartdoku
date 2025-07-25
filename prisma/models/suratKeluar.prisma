@@ -1,0 +1,20 @@
+model SuratKeluar {
+  id                Int         @id @default(autoincrement())
+  nomor_urut        Int
+  kode              String      @unique
+  klasifikasi       String
+  no_register       String      @unique
+  tujuan_surat      String?
+  perihal           String
+  tanggal_surat     DateTime    @db.Date
+  akses_arsip       AksesArsip
+  pengolah          Disposisi
+  pembuat           String?
+  catatan           String?
+  link_surat        String?
+  koreksi_1         String?
+  koreksi_2         String?
+  koreksi_3         String?
+  status            Status?
+  timestamp         DateTime
+}

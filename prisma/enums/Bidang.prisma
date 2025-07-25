@@ -1,0 +1,8 @@
+enum Bidang {
+  Sekretariat   
+  Permukiman     
+  Perumahan     
+  Penataan_RPB  @map("Penataan Ruang dan PB")
+  UPT_ALD       @map("UPT Air Limbah Domestik")
+  UPT_PTM       @map("UPT Pertamanan")
+}

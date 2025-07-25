@@ -1,0 +1,40 @@
+model DataSurat {
+  id                Int             @id @default(autoincrement())
+  nomor_urut        Int
+  nama_surat        String          @db.Text
+  tanggal_diterima  DateTime        @db.Date
+  tanggal_surat     DateTime        @db.Date
+  kode              String          @unique
+  no_agenda         String          @unique
+  no_surat          String          @unique
+  hal               String          @db.Text
+  tanggal           DateTime        @db.Date
+  waktu             DateTime        @db.Time
+  tempat            String
+  disposisi         Disposisi
+  index             String?
+  pengolah          String
+  sifat             String?
+  link_surat        String?
+  link_scan         String?
+  disp_1            DateTime        @db.Date
+  disp_2            DateTime        @db.Date
+  disp_3            DateTime?       @db.Date
+  disp_4            DateTime?       @db.Date
+  disp_1_notes      String?         @db.Text
+  disp_2_notes      String?         @db.Text
+  disp_3_notes      String?         @db.Text
+  disp_4_notes      String?         @db.Text
+  disp_lanjut       DispLanjutan?
+  tindak_lanjut_1   DateTime?       @db.Date
+  tindak_lanjut_2   DateTime?       @db.Date
+  tindak_lanjut_3   DateTime?       @db.Date
+  tl_notes_1        String?         @db.Text
+  tl_notes_2        String?         @db.Text
+  tl_notes_3        String?         @db.Text
+  status            Status?
+  dok_final         String?
+  dok_dikirim       DateTime?       @db.Date
+  tanda_terima      DateTime?       @db.Date
+  timestamp         DateTime
+}
