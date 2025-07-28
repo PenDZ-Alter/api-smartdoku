@@ -1,6 +1,6 @@
 model DataSurat {
   id                Int             @id @default(autoincrement())
-  nomor_urut        Int
+  nomor_urut        Int             @unique
   nama_surat        String          @db.Text
   tanggal_diterima  DateTime        @db.Date
   tanggal_surat     DateTime        @db.Date
@@ -8,8 +8,7 @@ model DataSurat {
   no_agenda         String          @unique
   no_surat          String          @unique
   hal               String          @db.Text
-  tanggal           DateTime        @db.Date
-  waktu             DateTime        @db.Time
+  tanggal_waktu     DateTime
   tempat            String
   disposisi         Disposisi
   index             String?
@@ -28,10 +27,8 @@ model DataSurat {
   disp_lanjut       DispLanjutan?
   tindak_lanjut_1   DateTime?       @db.Date
   tindak_lanjut_2   DateTime?       @db.Date
-  tindak_lanjut_3   DateTime?       @db.Date
   tl_notes_1        String?         @db.Text
   tl_notes_2        String?         @db.Text
-  tl_notes_3        String?         @db.Text
   status            Status?
   dok_final         String?
   dok_dikirim       DateTime?       @db.Date
