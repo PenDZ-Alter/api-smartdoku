@@ -23,7 +23,7 @@ export type DataSurat = {
   no_surat: string,
   hal: string,
   tanggal: Date,
-  waktu: string,
+  waktu: Date,
   tempat: string,
   disposisi: Disposisi,
   index: String | null,
