@@ -18,7 +18,7 @@ router.get('/masuk', async (req, res) => {
 
 router.get('/masuk/:id', async (req, res) => {
   try {
-    const id = Number(req.params.id);
+    const id = req.params.id;
     const surat = await SuratMasukService.getSuratMasuk(id);
     return res.status(200).json(surat);
   } catch (err) {
@@ -30,8 +30,7 @@ router.get('/masuk/:id', async (req, res) => {
 
 router.post('/masuk/create', async (req, res) => {
   try {
-    const {  
-      nomor_urut,
+    const {
       nama_surat,
       tanggal_diterima,
       tanggal_surat,
@@ -68,7 +67,6 @@ router.post('/masuk/create', async (req, res) => {
     const timestamp = new Date(Date.now());
 
     const data = await SuratMasukService.createSuratMasuk(
-      nomor_urut,
       nama_surat,
       tanggal_diterima,
       tanggal_surat,

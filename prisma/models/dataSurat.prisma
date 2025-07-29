@@ -1,6 +1,6 @@
 model DataSurat {
-  id                Int             @id @default(autoincrement())
-  nomor_urut        Int             @unique
+  id                String          @id @default(cuid())
+  nomor_urut        Int             @unique @default(autoincrement())
   nama_surat        String          @db.Text
   tanggal_diterima  DateTime        @db.Date
   tanggal_surat     DateTime        @db.Date

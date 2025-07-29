@@ -44,14 +44,13 @@ export const listSuratMasuk = async (): Promise<DataSurat[]> => {
   );
 }
 
-export const getSuratMasuk = async (id?: number, nomor_urut?: number): Promise<DataSurat|null> => {
+export const getSuratMasuk = async (id?: string, nomor_urut?: number): Promise<DataSurat|null> => {
   return db.dataSurat.findUnique({
     where: { id, nomor_urut }
   });
 }
 
 export const createSuratMasuk = async (
-  nomor_urut: number,
   nama_surat: string,
   tanggal_diterima: Date,
   tanggal_surat: Date,
@@ -87,7 +86,6 @@ export const createSuratMasuk = async (
 ): Promise<DataSurat> => {
   return db.dataSurat.create({
     data: {
-      nomor_urut,
       nama_surat,
       tanggal_diterima,
       tanggal_surat,
@@ -125,7 +123,7 @@ export const createSuratMasuk = async (
 }
 
 export const updateSuratMasuk = async (
-  id: number,
+  id: string,
   nomor_urut: number,
   nama_surat: string,
   tanggal_diterima: Date,
@@ -161,9 +159,8 @@ export const updateSuratMasuk = async (
   timestamp: Date
 ): Promise<DataSurat> => {
   return db.dataSurat.update({
-    where: { id },
+    where: { id, nomor_urut },
     data: {
-      nomor_urut,
       nama_surat,
       tanggal_diterima,
       tanggal_surat,
@@ -200,7 +197,7 @@ export const updateSuratMasuk = async (
   });
 }
 
-export const deleteSuratMasuk = async (id: number): Promise<DataSurat|null> => {
+export const deleteSuratMasuk = async (id: string): Promise<DataSurat|null> => {
   return db.dataSurat.delete({
     where: { id }
   })

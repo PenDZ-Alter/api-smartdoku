@@ -1,6 +1,6 @@
 model SuratKeluar {
-  id                Int         @id @default(autoincrement())
-  nomor_urut        Int         @unique
+  id                String      @id @default(cuid())
+  nomor_urut        Int         @unique @default(autoincrement())
   kode              String      @unique
   klasifikasi       String
   no_register       String      @unique

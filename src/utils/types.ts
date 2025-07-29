@@ -1,7 +1,7 @@
 import { Role, Disposisi, Status, AksesArsip, DispLanjutan } from '../utils/db.server';
 
 export type User = {
-  id: number,
+  id: string,
   email: string,
   name: string,
   username: string,
@@ -13,7 +13,7 @@ export type User = {
 }
 
 export type DataSurat = {
-  id: number,
+  id: string,
   nomor_urut: number,
   nama_surat: string,
   tanggal_diterima: Date,
@@ -50,7 +50,7 @@ export type DataSurat = {
 }
 
 export type SuratKeluar = {
-  id: number,
+  id: string,
   nomor_urut: number,
   kode: string,
   klasifikasi: string,
