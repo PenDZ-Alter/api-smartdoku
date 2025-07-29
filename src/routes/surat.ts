@@ -107,3 +107,5 @@ router.post('/masuk/create', async (req, res) => {
 });
 
 router.post('');
+
+export default router;

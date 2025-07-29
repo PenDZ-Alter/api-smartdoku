@@ -1,5 +1,6 @@
 import express from 'express';
 import authRoutes from './routes/auth';
+import suratRoutes from './routes/surat';
 import { logger } from './middleware/logger';
 import { errorHandler } from './middleware/errorHandler';
 import { CLI_ARGS } from './services/args';
@@ -14,6 +15,7 @@ app.use(express.json());
 if (CLI_ARGS.debug) app.use(logger);
 
 app.use('/auth', authRoutes);
+app.use('/surat', suratRoutes);
 
 app.get('/', async (req, res) => {
   res.send("API is Active!!");
