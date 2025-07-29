@@ -20,7 +20,6 @@ export const listSuratMasuk = async (): Promise<DataSurat[]> => {
         index: true,
         pengolah: true,
         sifat: true,
-        link_surat: true,
         link_scan: true,
         disp_1: true,
         disp_2: true,
@@ -52,7 +51,6 @@ export const getSuratMasuk = async (id?: number, nomor_urut?: number): Promise<D
 }
 
 export const createSuratMasuk = async (
-  id: number,
   nomor_urut: number,
   nama_surat: string,
   tanggal_diterima: Date,
@@ -67,7 +65,6 @@ export const createSuratMasuk = async (
   index: string | null,
   pengolah: string,
   sifat: string | null,
-  link_surat: string | null,
   link_scan: string | null,
   disp_1: Date,
   disp_2: Date,
@@ -80,10 +77,8 @@ export const createSuratMasuk = async (
   disp_lanjut: DispLanjutan | null,
   tindak_lanjut_1: Date | null,
   tindak_lanjut_2: Date | null,
-  tindak_lanjut_3: Date | null,
   tl_notes_1: string | null,
   tl_notes_2: string | null,
-  tl_notes_3: string | null,
   status: Status | null,
   dok_final: string | null,
   dok_dikirim: Date | null,
@@ -92,7 +87,6 @@ export const createSuratMasuk = async (
 ): Promise<DataSurat> => {
   return db.dataSurat.create({
     data: {
-      id,
       nomor_urut,
       nama_surat,
       tanggal_diterima,
@@ -107,7 +101,6 @@ export const createSuratMasuk = async (
       index,
       pengolah,
       sifat,
-      link_surat,
       link_scan,
       disp_1,
       disp_2,
@@ -147,7 +140,6 @@ export const updateSuratMasuk = async (
   index: string | null,
   pengolah: string,
   sifat: string | null,
-  link_surat: string | null,
   link_scan: string | null,
   disp_1: Date,
   disp_2: Date,
@@ -185,7 +177,6 @@ export const updateSuratMasuk = async (
       index,
       pengolah,
       sifat,
-      link_surat,
       link_scan,
       disp_1,
       disp_2,

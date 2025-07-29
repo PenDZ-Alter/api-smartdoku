@@ -14,7 +14,6 @@ model DataSurat {
   index             String?
   pengolah          String
   sifat             String?
-  link_surat        String?
   link_scan         String?
   disp_1            DateTime        @db.Date
   disp_2            DateTime        @db.Date
