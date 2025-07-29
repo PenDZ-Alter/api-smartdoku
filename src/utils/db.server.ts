@@ -1,4 +1,4 @@
-import { PrismaClient, Role, Bidang, Disposisi, Status, AksesArsip, DispLanjutan } from "../@generated/prisma";
+import { PrismaClient, Role, Disposisi, Status, AksesArsip, DispLanjutan } from "../@generated/prisma";
 
 let db: PrismaClient;
 
@@ -12,4 +12,4 @@ if (!global.__db) {
 
 db = global.__db;
 
-export { db, Role, Bidang, Disposisi, Status, AksesArsip, DispLanjutan };
+export { db, Role, Disposisi, Status, AksesArsip, DispLanjutan };
