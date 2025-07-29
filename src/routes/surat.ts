@@ -99,6 +99,8 @@ router.post('/masuk/create', async (req, res) => {
       dok_dikirim,
       tanda_terima,
       timestamp);
+
+    return res.status(200).json(data);
   } catch (err) {
     console.log("[ERR] Error on surat masuk!")
     if (CLI_ARGS.debug) console.error(err);

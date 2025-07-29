@@ -197,8 +197,8 @@ export const updateSuratMasuk = async (
   });
 }
 
-export const deleteSuratMasuk = async (id: string): Promise<DataSurat|null> => {
+export const deleteSuratMasuk = async (nomor_urut: number): Promise<DataSurat|null> => {
   return db.dataSurat.delete({
-    where: { id }
+    where: { nomor_urut }
   })
 }
