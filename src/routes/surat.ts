@@ -109,7 +109,7 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
   }
 });
 
-router.put('/masuk/:num', async (req, res) => {
+router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
   try {
     const nomor_urut = Number(req.params.num);
     const { 
@@ -185,6 +185,19 @@ router.put('/masuk/:num', async (req, res) => {
     );
 
     return res.status(200).json(data);
+  } catch (err) {
+    console.log("[ERR] Error on surat masuk!")
+    if (CLI_ARGS.debug) console.error(err);
+    return res.status(400).json({ message: "Something went wrong!" });
+  }
+});
+
+router.delete('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
+  try {
+    const nomor_urut = Number(req.params.num);
+    const data = await SuratMasukService.deleteSuratMasuk(nomor_urut);
+
+    return res.status(200).json({ message: "Deleted Successfully!" });
   } catch (err) {
     console.log("[ERR] Error on surat masuk!")
     if (CLI_ARGS.debug) console.error(err);
