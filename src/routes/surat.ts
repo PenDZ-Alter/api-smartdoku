@@ -2,10 +2,11 @@ import express from 'express';
 import * as SuratMasukService from '../services/suratMasuk';
 import { requireRole } from '../middleware/requireRole';
 import { CLI_ARGS } from '../services/args';
+import { authMiddleware } from '../middleware/auth';
 
 const router = express.Router();
 
-router.get('/masuk', async (req, res) => {
+router.get('/masuk', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
   try {
     const surat = await SuratMasukService.listSuratMasuk();
     return res.status(200).json(surat);
@@ -16,7 +17,7 @@ router.get('/masuk', async (req, res) => {
   }
 });
 
-router.get('/masuk/:num', async (req, res) => {
+router.get('/masuk/:num', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
   try {
     const nomor_urut = Number(req.params.num);
     const surat = await SuratMasukService.getSuratMasuk(nomor_urut);
@@ -28,7 +29,7 @@ router.get('/masuk/:num', async (req, res) => {
   }
 });
 
-router.post('/masuk', async (req, res) => {
+router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
   try {
     const {
       nama_surat,
