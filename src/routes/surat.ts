@@ -198,7 +198,7 @@ router.delete('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'),
     const nomor_urut = Number(req.params.num);
     const data = await SuratService.deleteSuratMasuk(nomor_urut);
 
-    return res.status(200).json({ message: "Deleted Successfully!" });
+    return res.status(200).json({ message: "Surat Masuk Deleted Successfully!", data: { id: data?.id, nomor_urut: data?.nomor_urut } });
   } catch (err) {
     console.log("[ERR] Error on surat masuk!")
     if (CLI_ARGS.debug) console.error(err);
@@ -207,7 +207,136 @@ router.delete('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'),
 });
 
 /* Surat Keluar */
+router.get('/keluar', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
+  try {
+    const data = await SuratService.listSuratKeluar();
 
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log("[ERR] Error on surat keluar!")
+    if (CLI_ARGS.debug) console.error(err);
+    return res.status(400).json({ message: "Something went wrong!" });
+  }
+});
 
+router.get('/keluar/:num', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
+  try {
+    const nomor_urut = Number(req.params.num);
+    const data = await SuratService.getSuratKeluar(nomor_urut);
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log("[ERR] Error on surat keluar!")
+    if (CLI_ARGS.debug) console.error(err);
+    return res.status(400).json({ message: "Something went wrong!" });
+  }
+});
+
+router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
+  try {
+    const {
+      kode,
+      klasifikasi,
+      no_register,
+      tujuan_surat,
+      perihal,
+      tanggal_surat,
+      akses_arsip,
+      pengolah,
+      pembuat,
+      catatan,
+      link_surat,
+      koreksi_1,
+      koreksi_2,
+      status,
+    } = req.body;
+
+    const timestamp = new Date(Date.now());
+    const data = await SuratService.createSuratKeluar(
+      kode,
+      klasifikasi,
+      no_register,
+      tujuan_surat,
+      perihal,
+      tanggal_surat,
+      akses_arsip,
+      pengolah,
+      pembuat,
+      catatan,
+      link_surat,
+      koreksi_1,
+      koreksi_2,
+      status,
+      timestamp
+    );
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log("[ERR] Error on surat keluar!")
+    if (CLI_ARGS.debug) console.error(err);
+    return res.status(400).json({ message: "Something went wrong!" });
+  }
+});
+
+router.put('/keluar/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
+  try {
+    const nomor_urut = Number(req.params.id);
+    const {
+      kode,
+      klasifikasi,
+      no_register,
+      tujuan_surat,
+      perihal,
+      tanggal_surat,
+      akses_arsip,
+      pengolah,
+      pembuat,
+      catatan,
+      link_surat,
+      koreksi_1,
+      koreksi_2,
+      status,
+    } = req.body;
+
+    const timestamp = new Date(Date.now());
+    const data = await SuratService.updateSuratKeluar(
+      nomor_urut,
+      kode,
+      klasifikasi,
+      no_register,
+      tujuan_surat,
+      perihal,
+      tanggal_surat,
+      akses_arsip,
+      pengolah,
+      pembuat,
+      catatan,
+      link_surat,
+      koreksi_1,
+      koreksi_2,
+      status,
+      timestamp
+    );
+
+    return res.status(200).json(data);
+  } catch (err) {
+    console.log("[ERR] Error on surat keluar!")
+    if (CLI_ARGS.debug) console.error(err);
+    return res.status(400).json({ message: "Something went wrong!" });
+  }
+});
+
+router.delete('/keluar/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
+  try {
+    const nomor_urut = Number(req.params.num);
+    const data = await SuratService.deleteSuratKeluar(nomor_urut);
+
+    return res.status(200).json({ message: "Surat Keluar deleted Successfully!", data: { id: data?.id, nomor_urut: data?.nomor_urut } });
+  } catch (err) {
+    console.log("[ERR] Error on surat keluar!")
+    if (CLI_ARGS.debug) console.error(err);
+    return res.status(400).json({ message: "Something went wrong!" });
+  }
+});
 
 export default router;

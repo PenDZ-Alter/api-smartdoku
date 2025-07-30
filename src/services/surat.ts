@@ -235,7 +235,6 @@ export const getSuratKeluar = async(nomor_urut: number) : Promise<SuratKeluar|nu
 }
 
 export const createSuratKeluar = async(
-  nomor_urut: number,
   kode: string,
   klasifikasi: string,
   no_register: string,
@@ -254,7 +253,6 @@ export const createSuratKeluar = async(
 ) : Promise<SuratKeluar|null> => {
   return db.suratKeluar.create({
     data: {
-      nomor_urut,
       kode,
       klasifikasi,
       no_register,
