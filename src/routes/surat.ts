@@ -1,14 +1,15 @@
 import express from 'express';
-import * as SuratMasukService from '../services/suratMasuk';
+import * as SuratService from '../services/surat';
 import { requireRole } from '../middleware/requireRole';
 import { CLI_ARGS } from '../services/args';
 import { authMiddleware } from '../middleware/auth';
 
 const router = express.Router();
 
+/* Surat Masuk */
 router.get('/masuk', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
   try {
-    const surat = await SuratMasukService.listSuratMasuk();
+    const surat = await SuratService.listSuratMasuk();
     return res.status(200).json(surat);
   } catch (err) {
     console.log("[ERR] Error on surat masuk!")
@@ -20,7 +21,7 @@ router.get('/masuk', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'),
 router.get('/masuk/:num', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
   try {
     const nomor_urut = Number(req.params.num);
-    const surat = await SuratMasukService.getSuratMasuk(nomor_urut);
+    const surat = await SuratService.getSuratMasuk(nomor_urut);
     return res.status(200).json(surat);
   } catch (err) {
     console.log("[ERR] Error on surat masuk!")
@@ -67,7 +68,7 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
 
     const timestamp = new Date(Date.now());
 
-    const data = await SuratMasukService.createSuratMasuk(
+    const data = await SuratService.createSuratMasuk(
       nama_surat,
       tanggal_diterima,
       tanggal_surat,
@@ -148,7 +149,7 @@ router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), as
 
     const timestamp = new Date(Date.now());
 
-    const data = await SuratMasukService.updateSuratMasuk(
+    const data = await SuratService.updateSuratMasuk(
       nomor_urut,
       nama_surat,
       tanggal_diterima,
@@ -195,7 +196,7 @@ router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), as
 router.delete('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
   try {
     const nomor_urut = Number(req.params.num);
-    const data = await SuratMasukService.deleteSuratMasuk(nomor_urut);
+    const data = await SuratService.deleteSuratMasuk(nomor_urut);
 
     return res.status(200).json({ message: "Deleted Successfully!" });
   } catch (err) {
@@ -204,5 +205,9 @@ router.delete('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'),
     return res.status(400).json({ message: "Something went wrong!" });
   }
 });
+
+/* Surat Keluar */
+
+
 
 export default router;

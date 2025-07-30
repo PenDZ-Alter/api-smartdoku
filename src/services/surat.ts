@@ -1,6 +1,7 @@
-import { db, DispLanjutan, Disposisi, Status } from '../utils/db.server';
-import type { DataSurat } from '../utils/types';
+import { db, DispLanjutan, Disposisi, Status, AksesArsip } from '../utils/db.server';
+import type { DataSurat, SuratKeluar } from '../utils/types';
 
+/* Surat Masuk */
 export const listSuratMasuk = async (): Promise<DataSurat[]> => {
   return db.dataSurat.findMany(
     {
@@ -200,4 +201,121 @@ export const deleteSuratMasuk = async (nomor_urut: number): Promise<DataSurat|nu
   return db.dataSurat.delete({
     where: { nomor_urut }
   })
+}
+
+/* Surat Keluar */
+export const listSuratKeluar = async() : Promise<SuratKeluar[]> => {
+  return db.suratKeluar.findMany({
+    select: {
+      id: true,
+      nomor_urut: true,
+      kode: true,
+      klasifikasi: true,
+      no_register: true,
+      tujuan_surat: true,
+      perihal: true,
+      tanggal_surat: true,
+      akses_arsip: true,
+      pengolah: true,
+      pembuat: true,
+      catatan: true,
+      link_surat: true,
+      koreksi_1: true,
+      koreksi_2: true,
+      status: true,
+      timestamp: true
+    }
+  });
+}
+
+export const getSuratKeluar = async(nomor_urut: number) : Promise<SuratKeluar|null> => {
+  return db.suratKeluar.findUnique({ 
+    where: { nomor_urut }
+  });
+}
+
+export const createSuratKeluar = async(
+  nomor_urut: number,
+  kode: string,
+  klasifikasi: string,
+  no_register: string,
+  tujuan_surat: string | null,
+  perihal: string,
+  tanggal_surat: Date,
+  akses_arsip: AksesArsip,
+  pengolah: Disposisi,
+  pembuat: string | null,
+  catatan: string | null,
+  link_surat: string | null,
+  koreksi_1: string | null,
+  koreksi_2: string | null,
+  status: Status | null,
+  timestamp: Date
+) : Promise<SuratKeluar|null> => {
+  return db.suratKeluar.create({
+    data: {
+      nomor_urut,
+      kode,
+      klasifikasi,
+      no_register,
+      tujuan_surat,
+      perihal,
+      tanggal_surat,
+      akses_arsip,
+      pengolah,
+      pembuat,
+      catatan,
+      link_surat,
+      koreksi_1,
+      koreksi_2,
+      status,
+      timestamp
+    }
+  });
+}
+
+export const updateSuratKeluar = async(
+  nomor_urut: number,
+  kode: string,
+  klasifikasi: string,
+  no_register: string,
+  tujuan_surat: string | null,
+  perihal: string,
+  tanggal_surat: Date,
+  akses_arsip: AksesArsip,
+  pengolah: Disposisi,
+  pembuat: string | null,
+  catatan: string | null,
+  link_surat: string | null,
+  koreksi_1: string | null,
+  koreksi_2: string | null,
+  status: Status | null,
+  timestamp: Date
+) : Promise<SuratKeluar|null> => {
+  return db.suratKeluar.update({
+    where: { nomor_urut },
+    data: {
+      kode,
+      klasifikasi,
+      no_register,
+      tujuan_surat,
+      perihal,
+      tanggal_surat,
+      akses_arsip,
+      pengolah,
+      pembuat,
+      catatan,
+      link_surat,
+      koreksi_1,
+      koreksi_2,
+      status,
+      timestamp
+    }
+  });
+}
+
+export const deleteSuratKeluar = async(nomor_urut: number) : Promise<SuratKeluar|null> => {
+  return db.suratKeluar.delete({
+    where: { nomor_urut }
+  });
 }
