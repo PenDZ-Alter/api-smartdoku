@@ -1,0 +1,57 @@
+import { db } from '../utils/db.server';
+import type { Disposisi, Role } from '../utils/db.server';
+import type { User } from '../utils/types';
+
+export const listUsers = async() : Promise<User[]> => {
+  return db.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      username: true,
+      email: true,
+      bidang: true,
+      password: false,
+      role: false,
+      address: true,
+      phone_number: true
+    }
+  });
+}
+
+export const getUser = async(id: string) : Promise<User | null> => {
+  return db.user.findUnique({
+    where: { id }
+  });
+}
+
+export const updateUser = async(
+  id: string,
+  email: string,
+  name: string,
+  username: string,
+  bidang: Disposisi | null,
+  password: string,
+  role: Role,
+  address: string | null,
+  phone_number: bigint | null
+) : Promise<User | null> => {
+  return db.user.update({ 
+    where: { id },
+    data : {
+      name,
+      username,
+      email,
+      bidang,
+      password,
+      role,
+      address,
+      phone_number
+    }
+  });
+}
+
+export const deleteUser = async(id: string) : Promise<User> => {
+  return db.user.delete({
+    where: { id }
+  });
+}

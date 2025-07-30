@@ -1,16 +1,18 @@
 {
-  "name": "api-pensudis",
+  "name": "api-smartdoku",
   "module": "src/index.ts",
   "type": "module",
+  "prisma": {
+    "schema": "./prisma"
+  },
   "scripts": {
     "dev": "bun src/index.ts --env=local",
-    "prod": "bun src/index.ts --env=prod",
+    "prod": "bun src/index.ts --env=production",
     "debug": "bun src/index.ts --env=local --debug",
-    "prisma dev": "bun prisma migrate dev --name update --env-file=.env.local",
-    "prisma prod": "bun prisma migrate dev --name update-prod --env-file=.env.production",
-    "prisma deploy": "bun prisma migrate deploy",
-    "prisma reset": "bun prisma reset",
-    "generate": "bun prisma generate"
+    "migrate:dev": "bun prisma migrate dev --name update",
+    "migrate:prod": "bun prisma migrate deploy",
+    "migrate:reset": "bun prisma migrate reset",
+    "db:generate": "bun prisma generate"
   },
   "devDependencies": {
     "@prisma/client": "^6.12.0",
