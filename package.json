@@ -10,7 +10,7 @@
     "prod": "bun src/index.ts --env=production",
     "debug": "bun src/index.ts --env=local --debug",
     "migrate:dev": "bun prisma migrate dev --name update",
-    "migrate:prod": "bun prisma migrate deploy --name update-prod",
+    "migrate:prod": "bun prisma migrate deploy",
     "migrate:reset": "bun prisma migrate reset",
     "db:generate": "bun prisma generate"
   },
