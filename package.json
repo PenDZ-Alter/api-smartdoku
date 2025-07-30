@@ -1,5 +1,5 @@
 {
-  "name": "api-pensudis",
+  "name": "api-smartdoku",
   "module": "src/index.ts",
   "type": "module",
   "prisma": {
