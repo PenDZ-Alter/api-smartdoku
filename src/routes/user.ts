@@ -5,7 +5,7 @@ import { requireRole } from '../middleware/requireRole';
 
 const router = express.Router();
 
-router.get('/user', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
+router.get('/', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
     const users = await UserService.listUsers();
 
     if (!users) return res.status(401).json({ message: "No user are registered!" });
@@ -13,7 +13,7 @@ router.get('/user', authMiddleware, requireRole('SUPERADMIN'), async (req, res) 
     return res.status(200).json(users);
 });
 
-router.get('/user/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
+router.get('/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
     const id = req.params.id;
     const user = await UserService.getUser(id);
 
