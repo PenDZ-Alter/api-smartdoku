@@ -33,7 +33,7 @@ export const updateUser = async(
   password: string,
   role: Role,
   address: string | null,
-  phone_number: bigint | null
+  phone_number: string | null
 ) : Promise<User | null> => {
   return db.user.update({ 
     where: { id },

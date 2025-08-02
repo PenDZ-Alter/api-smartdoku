@@ -9,7 +9,7 @@ export type User = {
   password?: string,
   role?: Role,
   address: string | null,
-  phone_number: bigint | null
+  phone_number: string | null
 }
 
 export type DataSurat = {

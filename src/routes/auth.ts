@@ -32,7 +32,7 @@ router.post('/register', async (req: Request, res: Response) => {
         username: user.username, 
         email: user.email, 
         address: user.address, 
-        phone: user.phone_number?.toString() 
+        phone: user.phone_number
       } 
     });
   } catch (err) {
