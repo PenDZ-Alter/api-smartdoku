@@ -30,7 +30,6 @@ export const updateUser = async(
   name: string,
   username: string,
   bidang: Disposisi | null,
-  password: string,
   role: Role,
   address: string | null,
   phone_number: string | null
@@ -42,7 +41,6 @@ export const updateUser = async(
       username,
       email,
       bidang,
-      password,
       role,
       address,
       phone_number
