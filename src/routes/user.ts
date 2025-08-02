@@ -26,7 +26,7 @@ router.put('/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res) =
   const id = req.params.id;
   const { name, username, email, role, address, phone_number, bidang } = req.body;
 
-  const user = await UserService.updateUser(id, name, username, email, role, address, phone_number, bidang);
+  const user = await UserService.updateUser(id, name, username, email, bidang, role, address, phone_number);
 
   if (!user) return res.status(401).json({ message: "User not found!" });
 
