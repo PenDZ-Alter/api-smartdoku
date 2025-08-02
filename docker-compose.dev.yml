@@ -18,5 +18,3 @@ services:
       - prisma/.env
     environment:
       - DB_HOST=mysql
-
-volumes:
