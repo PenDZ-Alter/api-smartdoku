@@ -12,7 +12,8 @@
     "migrate:dev": "bun prisma migrate dev --name update",
     "migrate:prod": "bun prisma migrate deploy",
     "migrate:reset": "bun prisma migrate reset",
-    "db:generate": "bun prisma generate"
+    "db:generate": "bun prisma generate",
+    "studio": "bun prisma studio"
   },
   "devDependencies": {
     "@prisma/client": "^6.12.0",
