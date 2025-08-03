@@ -2,6 +2,9 @@ node_modules
 .git
 Dockerfile
 docker-compose.*
+.env
+.env.local
+.env.production
 .vscode
 .idea
 dist

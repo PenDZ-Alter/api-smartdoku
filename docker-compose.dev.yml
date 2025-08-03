@@ -15,6 +15,5 @@ services:
     command: sh -c "bun run migrate:dev && bun run debug"
     env_file:
       - .env.local
-      - prisma/.env
     environment:
       - DB_HOST=mysql

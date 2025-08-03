@@ -13,4 +13,3 @@ services:
       RUN_MIGRATIONS: "true"
     env_file:
       - .env.production
-      - prisma/.env
