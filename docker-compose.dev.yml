@@ -10,6 +10,7 @@ services:
       - .:/app
       - /app/node_modules
       - /app/src/@generated
+      - /data:/app/data
     ports:
       - "${PORT:-3000}:${PORT:-3000}"
     command: sh -c "bun run migrate:dev && bun run debug"

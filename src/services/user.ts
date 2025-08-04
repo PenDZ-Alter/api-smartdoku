@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { db } from '../utils/db.server';
 import type { Disposisi, Role } from '../utils/db.server';
 import type { User } from '../utils/types';
@@ -51,5 +52,14 @@ export const updateUser = async(
 export const deleteUser = async(id: string) : Promise<User> => {
   return db.user.delete({
     where: { id }
+  });
+}
+
+export const changePassword = async(id: string, password: string) : Promise<User> => {
+  const hashed = await bcrypt.hash(password, 10);
+  
+  return db.user.update({
+    where: { id },
+    data: { password: hashed }
   });
 }

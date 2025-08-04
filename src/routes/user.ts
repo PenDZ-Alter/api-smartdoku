@@ -42,4 +42,13 @@ router.delete('/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res
   return res.status(200).json({ message: "Successfully deleted user!" });
 });
 
+router.put('/pass/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
+  const id = req.params.id;
+  const { password } = req.body;
+
+  const user = await UserService.changePassword(id, password);
+
+  return res.status(200).json({ message: "Successfully changed password", data: { name: user.name, email: user.email } });
+});
+
 export default router;
