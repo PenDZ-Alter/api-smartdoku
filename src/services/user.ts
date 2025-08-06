@@ -19,14 +19,14 @@ export const listUsers = async() : Promise<User[]> => {
   });
 }
 
-export const getUser = async(id: string) : Promise<User | null> => {
+export const getUser = async(id: string|undefined) : Promise<User | null> => {
   return db.user.findUnique({
     where: { id }
   });
 }
 
 export const updateUser = async(
-  id: string,
+  id: string|undefined,
   email: string,
   name: string,
   username: string,
@@ -49,13 +49,13 @@ export const updateUser = async(
   });
 }
 
-export const deleteUser = async(id: string) : Promise<User> => {
+export const deleteUser = async(id: string|undefined) : Promise<User> => {
   return db.user.delete({
     where: { id }
   });
 }
 
-export const changePassword = async(id: string, password: string) : Promise<User> => {
+export const changePassword = async(id: string|undefined, password: string) : Promise<User> => {
   const hashed = await bcrypt.hash(password, 10);
   
   return db.user.update({
