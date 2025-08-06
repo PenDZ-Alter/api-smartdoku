@@ -12,11 +12,11 @@ dotenv.config({ path: `.env.${CLI_ARGS.env}`, quiet: true });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+if (CLI_ARGS.debug) app.use(logger);
 
 app.use('/upload', uploadRoutes)
 
 app.use(express.json());
-if (CLI_ARGS.debug) app.use(logger);
 
 app.use('/auth', authRoutes);
 app.use('/surat', suratRoutes);
