@@ -4,7 +4,7 @@ services:
   app:
     build:
       context: .
-      target: production
+      target: production-stage
       args:
         APP_ENV: production
     ports:
@@ -13,29 +13,6 @@ services:
       RUN_MIGRATIONS: "true"
     env_file:
       - .env.production
-    depends_on:
-      mariadb:
-        condition: service_healthy
-    restart: unless-stopped
-
-  mariadb:
-    image: mariadb:11.3
-    command: --default-authentication-plugin=mysql_native_password
-    env_file:
-      - .env.production
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - mariadb-prod-data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${DB_USER}", "-p${DB_PASSWORD}"]
-      interval: 5s
-      timeout: 10s
-      retries: 10
-    restart: unless-stopped
-
-volumes:
-  mariadb-prod-data:
+    volume:
+      - /volume1/docker/app:/app
+      - /volume1/docker/data:/app/data

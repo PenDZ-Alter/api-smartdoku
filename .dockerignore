@@ -1,10 +1,10 @@
 node_modules
 .git
+Dockerfile
+docker-compose.*
 .env
 .env.local
 .env.production
-Dockerfile
-docker-compose.*
 .vscode
 .idea
 dist

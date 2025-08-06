@@ -6,6 +6,6 @@ model User {
   address       String?     @db.Text
   password      String
   bidang        Disposisi?
-  phone_number  BigInt?
+  phone_number  String?
   role          Role        @default(USER)
 }

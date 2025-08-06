@@ -2,37 +2,40 @@
   "name": "api-smartdoku",
   "module": "src/index.ts",
   "type": "module",
-  "prisma": {
-    "schema": "./prisma"
-  },
   "scripts": {
     "dev": "bun src/index.ts --env=local",
     "prod": "bun src/index.ts --env=production",
     "debug": "bun src/index.ts --env=local --debug",
-    "migrate:dev": "bun prisma migrate dev --name update",
-    "migrate:prod": "bun prisma migrate deploy",
-    "migrate:reset": "bun prisma migrate reset",
-    "db:generate": "bun prisma generate"
+    "migrate:dev": "bun --env-file .env.local prisma migrate dev --name update",
+    "migrate:prod": "bun --env-file .env.production prisma migrate deploy",
+    "reset:dev": "bun --env-file .env.local prisma migrate reset --force",
+    "generate:dev": "bun --env-file .env.local prisma generate",
+    "generate:prod": "bun --env-file .env.production prisma generate",
+    "studio": "bun --env-file .env.$NODE_ENVprisma studio"
   },
   "devDependencies": {
-    "@prisma/client": "^6.12.0",
+    "@structure-codes/cli": "^0.0.6",
     "@types/bcrypt": "^5.0.2",
     "@types/bun": "latest",
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/minimist": "^1.2.5",
-    "nodemon": "^3.1.10"
+    "@types/multer": "^2.0.0",
+    "dotenv-cli": "^10.0.0",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.13.0"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@prisma/client": "^6.13.0",
     "bcrypt": "^6.0.0",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "minimist": "^1.2.8",
-    "prisma": "^6.12.0"
+    "multer": "^2.0.2"
   }
 }

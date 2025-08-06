@@ -4,6 +4,7 @@ An API Endpoint for DPKPCK to manage apps for SmartDoku.
 ## Tech Stack
 - Express.js
 - Prisma
+- Docker
 
 ## Getting Started
 
@@ -12,30 +13,39 @@ An API Endpoint for DPKPCK to manage apps for SmartDoku.
 > You need to make a copy from `.env.example` file and rename it into `.env.local` for development and `.env.production` for production.
 
 ```bash
+# Environment Setup
+NODE_ENV=
+
+# App Config
 PORT=
-JWT_SECRET=
+JWT_SECRET=""
+
+# Database Config
+DB_HOST=
+DB_PORT=
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
 ```
-Notice that has 2 environments value that you must filled in.
+Notice that has environments value that you must filled in.
 For `JWT_SECRET`, you can fill it anything, and it's needed for token.
 
 > [!NOTE]
-> It's really recommended to generate from SSL Key for `JWT_SECRET`.
+> It's highly recommended to generate from SSL Key for `JWT_SECRET`.
 
-### 2. Configure Environment (For Prisma)
-> [!WARNING]
-> You need to make a copy from `.env.example` file and rename it into `.env`.
+### 2. Run via Local
 
-Prisma is using `dotenv-expand` for his environment. So, that's why the environment is different.
-
+If you are in development, simply run this code : 
 ```bash
-DATABASE_URL=
+bun run dev
 ```
-You can fill `DATABASE_URL` based on provider you used.
-
-For example, if you are using MySQL, the environment value is look like this : 
-
+Or, if you want to debug, simply run this code : 
 ```bash
-DATABASE_URL="mysql://<user>:<password>@<url/ip>:<port>/api-pensudis"
+bun run debug
 ```
 
-Refer to this ![documentation](https://www.prisma.io/docs) for more further information.
+### 3. Run via docker
+
+If you are in development, run docker file named `docker-compose.dev.yml`.
+
+Or, if you in production stage, run docker file named `docker-compose.prod.yml`

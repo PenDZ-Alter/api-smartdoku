@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { db } from '../utils/db.server';
 import type { Disposisi, Role } from '../utils/db.server';
 import type { User } from '../utils/types';
@@ -18,22 +19,21 @@ export const listUsers = async() : Promise<User[]> => {
   });
 }
 
-export const getUser = async(id: string) : Promise<User | null> => {
+export const getUser = async(id: string|undefined) : Promise<User | null> => {
   return db.user.findUnique({
     where: { id }
   });
 }
 
 export const updateUser = async(
-  id: string,
+  id: string|undefined,
   email: string,
   name: string,
   username: string,
   bidang: Disposisi | null,
-  password: string,
   role: Role,
   address: string | null,
-  phone_number: bigint | null
+  phone_number: string | null
 ) : Promise<User | null> => {
   return db.user.update({ 
     where: { id },
@@ -42,7 +42,6 @@ export const updateUser = async(
       username,
       email,
       bidang,
-      password,
       role,
       address,
       phone_number
@@ -50,8 +49,17 @@ export const updateUser = async(
   });
 }
 
-export const deleteUser = async(id: string) : Promise<User> => {
+export const deleteUser = async(id: string|undefined) : Promise<User> => {
   return db.user.delete({
     where: { id }
+  });
+}
+
+export const changePassword = async(id: string|undefined, password: string) : Promise<User> => {
+  const hashed = await bcrypt.hash(password, 10);
+  
+  return db.user.update({
+    where: { id },
+    data: { password: hashed }
   });
 }
