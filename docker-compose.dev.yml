@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        APP_ENV: local
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/src/@generated
+      - /data:/app/data
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    command: sh -c "bun run migrate:dev && bun run debug"
+    env_file:
+      - .env.local
+    environment:
+      - DB_HOST=mysql

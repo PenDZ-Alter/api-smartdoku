@@ -1,19 +1,19 @@
-import { Bidang, Role, Disposisi, Status, AksesArsip, DispLanjutan } from '../utils/db.server';
+import { Role, Disposisi, Status, AksesArsip, DispLanjutan } from '../utils/db.server';
 
 export type User = {
-  id: number,
+  id: string,
   email: string,
   name: string,
   username: string,
-  bidang: Bidang | null,
+  bidang: Disposisi | null,
   password?: string,
   role?: Role,
   address: string | null,
-  phone_number: bigint | null
+  phone_number: string | null
 }
 
 export type DataSurat = {
-  id: number,
+  id: string,
   nomor_urut: number,
   nama_surat: string,
   tanggal_diterima: Date,
@@ -22,14 +22,12 @@ export type DataSurat = {
   no_agenda: string,
   no_surat: string,
   hal: string,
-  tanggal: Date,
-  waktu: string,
+  tanggal_waktu: Date,
   tempat: string,
   disposisi: Disposisi,
-  index: String | null,
+  index: string | null,
   pengolah: string,
   sifat: string | null,
-  link_surat: string | null,
   link_scan: string | null,
   disp_1: Date,
   disp_2: Date,
@@ -42,10 +40,8 @@ export type DataSurat = {
   disp_lanjut: DispLanjutan | null,
   tindak_lanjut_1: Date | null,
   tindak_lanjut_2: Date | null,
-  tindak_lanjut_3: Date | null,
-  tl_notes_1: String | null,
-  tl_notes_2: String | null,
-  tl_notes_3: String | null,
+  tl_notes_1: string | null,
+  tl_notes_2: string | null,
   status: Status | null,
   dok_final: string | null,
   dok_dikirim: Date | null,
@@ -54,7 +50,7 @@ export type DataSurat = {
 }
 
 export type SuratKeluar = {
-  id: number,
+  id: string,
   nomor_urut: number,
   kode: string,
   klasifikasi: string,
@@ -69,7 +65,6 @@ export type SuratKeluar = {
   link_surat: string | null,
   koreksi_1: string | null,
   koreksi_2: string | null,
-  koreksi_3: string | null,
   status: Status | null,
   timestamp: Date
 }

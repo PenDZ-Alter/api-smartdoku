@@ -1,10 +1,8 @@
 enum Disposisi {
-  PRPB
-  Perumahan
+  PRPB          @map("Penataan Ruang dan PB")
+  Perumahan     
   Permukiman
   Sekretariat
-  UPT_Taman
-  UPT_PALD
-  Renvapor
-  UKP
+  UPT_Taman     @map("UPT Pertamanan")
+  UPT_PALD      @map("UPT Pengelolaan Air Limbah Domestik")
 }

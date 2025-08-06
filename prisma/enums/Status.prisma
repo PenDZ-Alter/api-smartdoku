@@ -1,5 +1,4 @@
 enum Status {
-  Selesai
-  Belum
   Proses
+  Selesai
 }

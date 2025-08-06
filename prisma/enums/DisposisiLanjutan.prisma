@@ -10,4 +10,5 @@ enum DispLanjutan {
   PRB                   @map("Pemanfaatan ruang dan bangunan")
   Renvapor
   UKP                   @map("Umum keuangan dan kepegawaian")
+  KABID                 @map("Kepala Bidang")
 }

@@ -1,6 +1,6 @@
 model SuratKeluar {
-  id                Int         @id @default(autoincrement())
-  nomor_urut        Int
+  id                String      @id @default(cuid())
+  nomor_urut        Int         @unique @default(autoincrement())
   kode              String      @unique
   klasifikasi       String
   no_register       String      @unique
@@ -14,7 +14,6 @@ model SuratKeluar {
   link_surat        String?
   koreksi_1         String?
   koreksi_2         String?
-  koreksi_3         String?
   status            Status?
   timestamp         DateTime
 }

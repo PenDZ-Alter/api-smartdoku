@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: production-stage
+      args:
+        APP_ENV: production
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      RUN_MIGRATIONS: "true"
+    env_file:
+      - .env.production
+    volume:
+      - /volume1/docker/app:/app
+      - /volume1/docker/data:/app/data
