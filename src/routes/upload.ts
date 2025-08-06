@@ -9,7 +9,7 @@ import { requireRole } from '../middleware/requireRole';
 
 const router = express.Router();
 
-router.post('/upload', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
+router.post('/surat', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
   const { nomor_urut } = req.body;
   const nu_num = Number(nomor_urut);
   const file = req.file;
@@ -44,7 +44,7 @@ router.post('/upload', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'
   }
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/surat/:id', async (req, res) => {
   const id = Number(req.params.id);
 
   try {
@@ -71,6 +71,5 @@ router.delete('/delete/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete file', detail: err });
   }
 });
-
 
 export default router;
