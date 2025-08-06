@@ -1,4 +1,4 @@
-import { PrismaClient, Role, Disposisi, Status, AksesArsip, DispLanjutan } from "../@generated/prisma";
+import { PrismaClient, Role, Disposisi, Status, AksesArsip, DispLanjutan } from "@prisma/client"
 
 let db: PrismaClient;
 

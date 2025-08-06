@@ -19,6 +19,7 @@ FROM oven/bun:1.1.13-slim AS production
 WORKDIR /app
 
 COPY --from=builder /app .
+COPY .env.production .
 
 ARG APP_ENV=production
 ENV NODE_ENV=${APP_ENV}
