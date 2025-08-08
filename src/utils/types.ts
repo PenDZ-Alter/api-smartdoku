@@ -24,7 +24,7 @@ export type DataSurat = {
   hal: string,
   tanggal_waktu: Date,
   tempat: string,
-  disposisi: Disposisi,
+  disposisi: JSON,
   index: string | null,
   pengolah: string,
   sifat: string | null,

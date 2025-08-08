@@ -10,7 +10,7 @@ model DataSurat {
   hal               String          @db.Text
   tanggal_waktu     DateTime
   tempat            String
-  disposisi         Disposisi[]
+  disposisi         Json
   index             String?
   pengolah          String
   sifat             String?
