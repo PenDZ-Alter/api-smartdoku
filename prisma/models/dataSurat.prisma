@@ -10,7 +10,7 @@ model DataSurat {
   hal               String          @db.Text
   tanggal_waktu     DateTime
   tempat            String
-  disposisi         Json
+  disposisi         Json?
   index             String?
   pengolah          String
   sifat             String?
@@ -29,8 +29,5 @@ model DataSurat {
   tl_notes_1        String?         @db.Text
   tl_notes_2        String?         @db.Text
   status            Status?
-  dok_final         String?
-  dok_dikirim       DateTime?       @db.Date
-  tanda_terima      DateTime?       @db.Date
   timestamp         DateTime
 }

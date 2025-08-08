@@ -15,5 +15,8 @@ model SuratKeluar {
   koreksi_1         String?
   koreksi_2         String?
   status            Status?
+  dok_final         String?
+  dok_dikirim       DateTime?       @db.Date
+  tanda_terima      DateTime?       @db.Date
   timestamp         DateTime
 }

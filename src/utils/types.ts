@@ -12,6 +12,13 @@ export type User = {
   phone_number: string | null
 }
 
+export interface DisposisiItem {
+  tujuan: Disposisi;
+}
+
+// Tipe buat keseluruhan field disposisi di DataSurat
+export type DataSuratDisposisi = DisposisiItem[];
+
 export type DataSurat = {
   id: string,
   nomor_urut: number,
@@ -24,7 +31,7 @@ export type DataSurat = {
   hal: string,
   tanggal_waktu: Date,
   tempat: string,
-  disposisi: JSON,
+  disposisi: any,
   index: string | null,
   pengolah: string,
   sifat: string | null,
@@ -43,9 +50,6 @@ export type DataSurat = {
   tl_notes_1: string | null,
   tl_notes_2: string | null,
   status: Status | null,
-  dok_final: string | null,
-  dok_dikirim: Date | null,
-  tanda_terima: Date | null,
   timestamp: Date
 }
 
@@ -66,5 +70,13 @@ export type SuratKeluar = {
   koreksi_1: string | null,
   koreksi_2: string | null,
   status: Status | null,
+  dok_final: string | null,
+  dok_dikirim: Date | null,
+  tanda_terima: Date | null,
   timestamp: Date
+}
+
+export type Setting = {
+  suffix_code: string,
+  updatedAt: Date
 }

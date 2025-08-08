@@ -61,9 +61,6 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
     } = req.body;
 
     const timestamp = new Date(Date.now());
@@ -97,9 +94,6 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
       timestamp);
 
     return res.status(200).json(data);
@@ -142,9 +136,6 @@ router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), as
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
     } = req.body;
 
     const timestamp = new Date(Date.now());
@@ -179,9 +170,6 @@ router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), as
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
       timestamp
     );
 
@@ -249,6 +237,9 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima
     } = req.body;
 
     const timestamp = new Date(Date.now());
@@ -267,6 +258,9 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima,
       timestamp
     );
 
@@ -296,6 +290,9 @@ router.put('/keluar/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), a
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima
     } = req.body;
 
     const timestamp = new Date(Date.now());
@@ -315,6 +312,9 @@ router.put('/keluar/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), a
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima,
       timestamp
     );
 
