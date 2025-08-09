@@ -9,7 +9,7 @@ import { requireRole } from '../middleware/requireRole';
 
 const router = express.Router();
 
-router.post('/surat/masuk', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
+router.post('/surat/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
   const { nomor_urut } = req.body;
   const nu_num = Number(nomor_urut);
   const file = req.file;
@@ -44,7 +44,7 @@ router.post('/surat/masuk', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERA
   }
 });
 
-router.post('/surat/keluar', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
+router.post('/surat/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
   const { nomor_urut } = req.body;
   const nu_num = Number(nomor_urut);
   const file = req.file;
@@ -79,7 +79,7 @@ router.post('/surat/keluar', authMiddleware, requireRole('USER', 'ADMIN', 'SUPER
   }
 });
 
-router.delete('/surat/masuk/:id', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
+router.delete('/surat/masuk/:id', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
   const id = Number(req.params.id);
 
   try {
@@ -107,7 +107,7 @@ router.delete('/surat/masuk/:id', authMiddleware, requireRole('USER', 'ADMIN', '
   }
 });
 
-router.delete('/surat/keluar/:id', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
+router.delete('/surat/keluar/:id', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
   const id = Number(req.params.id);
 
   try {
