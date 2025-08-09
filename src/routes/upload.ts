@@ -44,7 +44,7 @@ router.post('/surat', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN')
   }
 });
 
-router.delete('/surat/:id', async (req, res) => {
+router.delete('/surat/:id', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
   const id = Number(req.params.id);
 
   try {
