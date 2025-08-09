@@ -1,5 +1,5 @@
 import express from 'express';
-import { upload } from '../middleware/uploadFile';
+import { upload } from '../middleware/files';
 import { db } from '../utils/db.server';
 import { ensureUploadFolder } from '../middleware/ensureUploadFolder';
 import fs from 'fs';

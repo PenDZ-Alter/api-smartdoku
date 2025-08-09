@@ -3,6 +3,7 @@ import authRoutes from './routes/auth';
 import suratRoutes from './routes/surat';
 import userRoutes from './routes/user';
 import uploadRoutes from './routes/upload';
+import downloadRoutes from './routes/download';
 import globalSettingsRoutes from './routes/settings';
 import { logger } from './middleware/logger';
 import { errorHandler } from './middleware/errorHandler';
@@ -15,7 +16,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 if (CLI_ARGS.debug) app.use(logger);
 
-app.use('/upload', uploadRoutes)
+app.use('/upload', uploadRoutes);
+app.use('/download', downloadRoutes);
 
 app.use(express.json());
 
