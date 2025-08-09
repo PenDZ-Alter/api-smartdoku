@@ -28,6 +28,6 @@ model DataSurat {
   tindak_lanjut_2   DateTime?       @db.Date
   tl_notes_1        String?         @db.Text
   tl_notes_2        String?         @db.Text
-  status            Status?
+  status            Status          @default(Proses)
   timestamp         DateTime
 }
