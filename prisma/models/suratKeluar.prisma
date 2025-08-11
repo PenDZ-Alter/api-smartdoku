@@ -1,7 +1,7 @@
 model SuratKeluar {
   id                String      @id @default(cuid())
   nomor_urut        Int         @unique @default(autoincrement())
-  kode              String      @unique
+  kode              String      
   klasifikasi       String
   no_register       String      @unique
   tujuan_surat      String?
