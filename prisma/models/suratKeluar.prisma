@@ -7,7 +7,7 @@ model SuratKeluar {
   tujuan_surat      String?
   perihal           String
   tanggal_surat     DateTime    @db.Date
-  akses_arsip       AksesArsip
+  akses_arsip       String?
   pengolah          Disposisi
   pembuat           String?
   catatan           String?

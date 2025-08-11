@@ -65,10 +65,13 @@ router.post('/surat/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'),
       return res.status(400).json({ error: 'File already uploaded, cannot overwrite' });
     }
 
+    const date = Date.now().toString();
+
     const post = await db.suratKeluar.update({
       where: { nomor_urut: nu_num },
       data: {
         dok_final: file.path,
+        dok_dikirim: date
       },
     });
 
