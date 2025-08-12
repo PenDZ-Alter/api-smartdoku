@@ -274,7 +274,7 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
 
 router.put('/keluar/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
   try {
-    const nomor_urut = Number(req.params.id);
+    const nomor_urut = Number(req.params.num);
     const {
       kode,
       klasifikasi,
