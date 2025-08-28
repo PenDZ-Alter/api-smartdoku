@@ -1,4 +1,4 @@
-import { db, DispLanjutan, Disposisi, Status, AksesArsip } from '../utils/db.server';
+import { db, Disposisi, Status } from '../utils/db.server';
 import type { DataSurat, DataSuratDisposisi, DisposisiItem, SuratKeluar } from '../utils/types';
 
 /* Surat Masuk */
@@ -71,12 +71,12 @@ export const createSuratMasuk = async (
   disp_2_notes: string | null,
   disp_3_notes: string | null,
   disp_4_notes: string | null,
-  disp_lanjut: DispLanjutan | null,
+  disp_lanjut: string | null,
   tindak_lanjut_1: Date | null,
   tindak_lanjut_2: Date | null,
   tl_notes_1: string | null,
   tl_notes_2: string | null,
-  status: Status | null,
+  status: Status,
   timestamp: Date
 ): Promise<DataSurat> => {
   return db.dataSurat.create({
@@ -138,12 +138,12 @@ export const updateSuratMasuk = async (
   disp_2_notes: string | null,
   disp_3_notes: string | null,
   disp_4_notes: string | null,
-  disp_lanjut: DispLanjutan | null,
+  disp_lanjut: string | null,
   tindak_lanjut_1: Date | null,
   tindak_lanjut_2: Date | null,
   tl_notes_1: string | null,
   tl_notes_2: string | null,
-  status: Status | null,
+  status: Status,
   timestamp: Date
 ): Promise<DataSurat> => {
   return db.dataSurat.update({
@@ -229,7 +229,7 @@ export const createSuratKeluar = async(
   tujuan_surat: string | null,
   perihal: string,
   tanggal_surat: Date,
-  akses_arsip: AksesArsip,
+  akses_arsip: string,
   pengolah: Disposisi,
   pembuat: string | null,
   catatan: string | null,
@@ -274,7 +274,7 @@ export const updateSuratKeluar = async(
   tujuan_surat: string | null,
   perihal: string,
   tanggal_surat: Date,
-  akses_arsip: AksesArsip,
+  akses_arsip: string,
   pengolah: Disposisi,
   pembuat: string | null,
   catatan: string | null,

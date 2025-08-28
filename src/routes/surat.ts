@@ -96,7 +96,7 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       status,
       timestamp);
 
-    return res.status(200).json(data);
+    return res.status(200).json({ message: "Successfully adding data!", data: data });
   } catch (err) {
     console.log("[ERR] Error on surat masuk!")
     if (CLI_ARGS.debug) console.error(err);
@@ -173,7 +173,7 @@ router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), as
       timestamp
     );
 
-    return res.status(200).json(data);
+    return res.status(200).json({ message: "Successfully edit data!", data: data });
   } catch (err) {
     console.log("[ERR] Error on surat masuk!")
     if (CLI_ARGS.debug) console.error(err);

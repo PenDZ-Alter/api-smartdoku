@@ -1,5 +1,0 @@
-model GlobalSettings {
-  id            Int      @id @default(autoincrement())
-  suffix_code   String
-  updatedAt     DateTime @updatedAt
-}
