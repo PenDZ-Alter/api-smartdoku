@@ -47,7 +47,7 @@ router.get('/surat/keluar/:num', authMiddleware, requireRole('USER', 'ADMIN', 'S
   });
 });
 
-router.get('/disposisi/:num', async (req, res) => {
+router.get('/disposisi/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
   const nomor_urut = Number(req.params.num);
 
   const data = await SuratService.getSuratMasuk(nomor_urut);
