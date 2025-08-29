@@ -52,6 +52,8 @@ router.get('/disposisi/:num', async (req, res) => {
 
   const data = await SuratService.getSuratMasuk(nomor_urut);
 
+  if (!data) return res.status(400).json({ message: "Data not found!" });
+
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.readFile("docs/template_disposisi.xlsx");
 
