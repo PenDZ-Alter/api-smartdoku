@@ -9,7 +9,7 @@ import { errorHandler } from './middleware/errorHandler';
 import { CLI_ARGS } from './services/args';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: `.env.${CLI_ARGS.env}`, quiet: true });
+dotenv.config({ path: `.env.${CLI_ARGS.env}`, quiet: CLI_ARGS.debug });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.use('/auth', authRoutes);
 app.use('/surat', suratRoutes);
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
 
 app.get('/', async (req, res) => {
   res.send("API is Active!!");

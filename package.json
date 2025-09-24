@@ -11,7 +11,7 @@
     "reset:dev": "bun --env-file .env.local prisma migrate reset --force",
     "generate:dev": "bun --env-file .env.local prisma generate",
     "generate:prod": "bun --env-file .env.production prisma generate",
-    "studio": "bun --env-file .env.$NODE_ENVprisma studio"
+    "studio": "bun --env-file .env.local prisma studio"
   },
   "devDependencies": {
     "@structure-codes/cli": "^0.0.6",
