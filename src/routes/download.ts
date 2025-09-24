@@ -47,10 +47,12 @@ router.get('/surat/keluar/:num', authMiddleware, requireRole('USER', 'ADMIN', 'S
   });
 });
 
-router.get('/disposisi/:num', async (req, res) => {
+router.get('/disposisi/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
   const nomor_urut = Number(req.params.num);
 
   const data = await SuratService.getSuratMasuk(nomor_urut);
+
+  if (!data) return res.status(400).json({ message: "Data not found!" });
 
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.readFile("docs/template_disposisi.xlsx");
