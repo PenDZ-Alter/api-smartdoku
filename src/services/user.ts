@@ -12,7 +12,7 @@ export const listUsers = async() : Promise<User[]> => {
       email: true,
       bidang: true,
       password: false,
-      role: false,
+      role: true,
       address: true,
       phone_number: true
     }

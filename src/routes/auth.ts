@@ -58,6 +58,7 @@ router.post('/login', async (req: Request, res: Response) => {
       email: user.email, 
       bidang: user.bidang, 
       role: user.role, 
+      phone_number: user.phone_number
     },
     token: token 
   });
