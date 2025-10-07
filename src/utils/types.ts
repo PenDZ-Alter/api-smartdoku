@@ -75,8 +75,3 @@ export type SuratKeluar = {
   tanda_terima: Date | null,
   timestamp: Date
 }
-
-export type Setting = {
-  suffix_code: string,
-  updatedAt: Date
-}
