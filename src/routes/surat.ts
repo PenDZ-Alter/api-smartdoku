@@ -95,7 +95,7 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       status,
       timestamp);
 
-    const no_register = `${kode}/${String(data!.nomor_urut).padStart(3, '0')}/${suffix_code}`;
+    const no_register = `${kode}/${String(data!.nomor_urut)}/${suffix_code}`;
     await SuratService.addAgenda(data, no_register);
 
     return res.status(200).json({ message: "Successfully adding data!", data: data });
@@ -265,7 +265,7 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
       timestamp
     );
 
-    const no_register = `${kode}/${String(data!.nomor_urut).padStart(3, '0')}/${suffix_code}`;
+    const no_register = `${kode}/${String(data!.nomor_urut)}/${suffix_code}`;
     await SuratService.addRegister(data, no_register);
 
     return res.status(200).json(data);
