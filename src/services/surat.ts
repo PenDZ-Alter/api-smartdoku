@@ -53,7 +53,6 @@ export const createSuratMasuk = async (
   tanggal_diterima: Date,
   tanggal_surat: Date,
   kode: string,
-  no_agenda: string,
   no_surat: string,
   hal: string,
   tanggal_waktu: Date,
@@ -85,7 +84,6 @@ export const createSuratMasuk = async (
       tanggal_diterima,
       tanggal_surat,
       kode,
-      no_agenda,
       no_surat,
       hal,
       tanggal_waktu,
@@ -225,7 +223,6 @@ export const getSuratKeluar = async(nomor_urut: number) : Promise<SuratKeluar|nu
 export const createSuratKeluar = async(
   kode: string,
   klasifikasi: string,
-  no_register: string,
   tujuan_surat: string | null,
   perihal: string,
   tanggal_surat: Date,
@@ -246,7 +243,6 @@ export const createSuratKeluar = async(
     data: {
       kode,
       klasifikasi,
-      no_register,
       tujuan_surat,
       perihal,
       tanggal_surat,
@@ -315,5 +311,24 @@ export const updateSuratKeluar = async(
 export const deleteSuratKeluar = async(nomor_urut: number) : Promise<SuratKeluar|null> => {
   return db.suratKeluar.delete({
     where: { nomor_urut }
+  });
+}
+
+/* Utilities */
+export const addRegister = async(surat: SuratKeluar|null, no_register: string) : Promise<any|null> => {
+  if (!surat) return null;
+
+  return await db.suratKeluar.update({
+    where: { id: surat!.id },
+    data: { no_register },
+  });
+}
+
+export const addAgenda = async(surat: DataSurat|null, no_agenda: string) : Promise<any|null> => {
+  if (!surat) return null;
+
+  return await db.dataSurat.update({
+    where: { id: surat!.id },
+    data: { no_agenda },
   });
 }

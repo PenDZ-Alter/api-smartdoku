@@ -5,7 +5,7 @@ model DataSurat {
   tanggal_diterima  DateTime        @db.Date
   tanggal_surat     DateTime        @db.Date
   kode              String
-  no_agenda         String          
+  no_agenda         String?          
   no_surat          String          
   hal               String          @db.Text
   tanggal_waktu     DateTime

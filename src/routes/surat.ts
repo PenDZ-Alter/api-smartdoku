@@ -37,7 +37,7 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       tanggal_diterima,
       tanggal_surat,
       kode,
-      no_agenda,
+      suffix_code,
       no_surat,
       hal,
       tanggal_waktu,
@@ -70,7 +70,6 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       tanggal_diterima,
       tanggal_surat,
       kode,
-      no_agenda,
       no_surat,
       hal,
       tanggal_waktu,
@@ -95,6 +94,9 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       tl_notes_2,
       status,
       timestamp);
+
+    const no_register = `${kode}/${String(data!.nomor_urut).padStart(3, '0')}/${suffix_code}`;
+    await SuratService.addAgenda(data, no_register);
 
     return res.status(200).json({ message: "Successfully adding data!", data: data });
   } catch (err) {
@@ -225,7 +227,7 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
     const {
       kode,
       klasifikasi,
-      no_register,
+      suffix_code,
       tujuan_surat,
       perihal,
       tanggal_surat,
@@ -246,7 +248,6 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
     const data = await SuratService.createSuratKeluar(
       kode,
       klasifikasi,
-      no_register,
       tujuan_surat,
       perihal,
       tanggal_surat,
@@ -263,6 +264,9 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
       tanda_terima,
       timestamp
     );
+
+    const no_register = `${kode}/${String(data!.nomor_urut).padStart(3, '0')}/${suffix_code}`;
+    await SuratService.addRegister(data, no_register);
 
     return res.status(200).json(data);
   } catch (err) {

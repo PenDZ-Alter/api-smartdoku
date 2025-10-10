@@ -3,7 +3,7 @@ model SuratKeluar {
   nomor_urut        Int         @unique @default(autoincrement())
   kode              String      
   klasifikasi       String
-  no_register       String      @unique
+  no_register       String?
   tujuan_surat      String?
   perihal           String
   tanggal_surat     DateTime    @db.Date
