@@ -13,6 +13,15 @@ router.get('/', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
   return res.status(200).json(users);
 });
 
+router.post('/', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
+  const { name, username, email, password, bidang, role, address, phone_number } = req.body;
+  const users = await UserService.addUser(email, name, username, bidang, role, address, phone_number, password);
+
+  if (!users) return res.status(401).json({ message: "No user are registered!" });
+
+  return res.status(200).json(users);
+});
+
 router.get('/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
   const id = req.params.id;
   const user = await UserService.getUser(id);
