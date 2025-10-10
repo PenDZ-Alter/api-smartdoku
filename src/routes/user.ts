@@ -2,6 +2,7 @@ import express from 'express';
 import * as UserService from '../services/user';
 import { authMiddleware } from '../middleware/auth';
 import { requireRole } from '../middleware/requireRole';
+import bcrypt from 'bcrypt';
 
 const router = express.Router();
 
@@ -15,7 +16,9 @@ router.get('/', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
 
 router.post('/', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
   const { name, username, email, password, bidang, role, address, phone_number } = req.body;
-  const users = await UserService.addUser(email, name, username, bidang, role, address, phone_number, password);
+  const hashed = await bcrypt.hash(password, 10);
+
+  const users = await UserService.addUser(email, name, username, bidang, role, address, phone_number, hashed);
 
   if (!users) return res.status(401).json({ message: "No user are registered!" });
 
@@ -54,8 +57,9 @@ router.delete('/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res
 router.put('/pass/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
   const id = req.params.id;
   const { password } = req.body;
+  const hashed = await bcrypt.hash(password, 10);
 
-  const user = await UserService.changePassword(id, password);
+  const user = await UserService.changePassword(id, hashed);
 
   return res.status(200).json({ message: "Successfully changed password", data: { name: user.name, email: user.email } });
 });
