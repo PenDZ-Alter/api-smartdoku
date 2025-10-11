@@ -4,6 +4,7 @@ import { requireRole } from '../middleware/requireRole';
 import { db } from '../utils/db.server';
 import ExcelJS from 'exceljs';
 import * as SuratService from '../services/surat';
+import path from 'path';
 
 const router = express.Router();
 
@@ -17,9 +18,9 @@ router.get('/surat/masuk/:num', authMiddleware, requireRole('USER', 'ADMIN', 'SU
 
   if (!file?.link_scan) return res.status(402).json({ message: "Can't find the file!" });
 
-  const filePath = '../../';
+  const filePath = path.join(__dirname, '..', '..') + "/" + file.link_scan;
 
-  res.download(filePath, file.link_scan, (err) => {
+  res.download(filePath, (err) => {
     if (err) {
       console.error(err);
       res.status(500).json({ message: "Error downloading file!" });
@@ -37,9 +38,9 @@ router.get('/surat/keluar/:num', authMiddleware, requireRole('USER', 'ADMIN', 'S
 
   if (!file?.dok_final) return res.status(402).json({ message: "Can't find the file!" });
 
-  const filePath = '../../';
+  const filePath = path.join(__dirname, '..', '..') + "/" + file.dok_final;
 
-  res.download(filePath, file.dok_final, (err) => {
+  res.download(filePath, (err) => {
     if (err) {
       console.error(err);
       res.status(500).json({ message: "Error downloading file!" });
