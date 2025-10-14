@@ -4,17 +4,13 @@
 FROM oven/bun:1.1.13-slim AS builder
 WORKDIR /app
 
-# 1️⃣ Copy dependency list dulu
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
-# 2️⃣ Copy Prisma folder secara eksplisit
 COPY prisma ./prisma
 
-# 3️⃣ Baru copy semua source code
 COPY . .
 
-# 4️⃣ Generate Prisma Client
 RUN bun run generate:prod
 
 # ————————————————————————
