@@ -30,7 +30,7 @@ EXPOSE ${PORT:-3000}
 CMD ["sh", "-c", "\
   if [ \"$RUN_MIGRATIONS\" = \"true\" ]; then \
     set -e; \
-    bun run migrate:dev; \
+    bun run migrate; \
     bun run migrate:prod; \
   fi && \
   bun run prod \

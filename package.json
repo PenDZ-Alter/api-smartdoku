@@ -8,6 +8,7 @@
     "debug": "bun src/index.ts --env=local --debug",
     "debug:verbose": "bun src/index.ts --env=local --debug --verbose", 
     "migrate:dev": "bun --env-file .env.local prisma migrate dev --name update",
+    "migrate": "bun --env-file .env.production prisma migrate dev --name pre-deploy",
     "migrate:prod": "bun --env-file .env.production prisma migrate deploy",
     "reset:dev": "bun --env-file .env.local prisma migrate reset --force",
     "generate:dev": "bun --env-file .env.local prisma generate",
