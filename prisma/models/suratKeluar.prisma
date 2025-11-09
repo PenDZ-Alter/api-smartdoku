@@ -1,13 +1,13 @@
 model SuratKeluar {
   id                String      @id @default(cuid())
   nomor_urut        Int         @unique @default(autoincrement())
-  kode              String      @unique
+  kode              String      
   klasifikasi       String
-  no_register       String      @unique
+  no_register       String?
   tujuan_surat      String?
   perihal           String
   tanggal_surat     DateTime    @db.Date
-  akses_arsip       AksesArsip
+  akses_arsip       String?
   pengolah          Disposisi
   pembuat           String?
   catatan           String?
@@ -15,5 +15,8 @@ model SuratKeluar {
   koreksi_1         String?
   koreksi_2         String?
   status            Status?
+  dok_final         String?
+  dok_dikirim       DateTime?       @db.Date
+  tanda_terima      DateTime?       @db.Date
   timestamp         DateTime
 }

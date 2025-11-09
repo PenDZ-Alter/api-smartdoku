@@ -37,7 +37,7 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       tanggal_diterima,
       tanggal_surat,
       kode,
-      no_agenda,
+      suffix_code,
       no_surat,
       hal,
       tanggal_waktu,
@@ -61,9 +61,6 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
     } = req.body;
 
     const timestamp = new Date(Date.now());
@@ -73,7 +70,6 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       tanggal_diterima,
       tanggal_surat,
       kode,
-      no_agenda,
       no_surat,
       hal,
       tanggal_waktu,
@@ -97,12 +93,12 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
       timestamp);
 
-    return res.status(200).json(data);
+    const no_register = `${kode}/${String(data!.nomor_urut)}/${suffix_code}`;
+    await SuratService.addAgenda(data, no_register);
+
+    return res.status(200).json({ message: "Successfully adding data!", data: data });
   } catch (err) {
     console.log("[ERR] Error on surat masuk!")
     if (CLI_ARGS.debug) console.error(err);
@@ -142,9 +138,6 @@ router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), as
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
     } = req.body;
 
     const timestamp = new Date(Date.now());
@@ -179,13 +172,10 @@ router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), as
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
       timestamp
     );
 
-    return res.status(200).json(data);
+    return res.status(200).json({ message: "Successfully edit data!", data: data });
   } catch (err) {
     console.log("[ERR] Error on surat masuk!")
     if (CLI_ARGS.debug) console.error(err);
@@ -237,7 +227,7 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
     const {
       kode,
       klasifikasi,
-      no_register,
+      suffix_code,
       tujuan_surat,
       perihal,
       tanggal_surat,
@@ -249,13 +239,15 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima
     } = req.body;
 
     const timestamp = new Date(Date.now());
     const data = await SuratService.createSuratKeluar(
       kode,
       klasifikasi,
-      no_register,
       tujuan_surat,
       perihal,
       tanggal_surat,
@@ -267,8 +259,14 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima,
       timestamp
     );
+
+    const no_register = `${kode}/${String(data!.nomor_urut)}/${suffix_code}`;
+    await SuratService.addRegister(data, no_register);
 
     return res.status(200).json(data);
   } catch (err) {
@@ -280,7 +278,7 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
 
 router.put('/keluar/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
   try {
-    const nomor_urut = Number(req.params.id);
+    const nomor_urut = Number(req.params.num);
     const {
       kode,
       klasifikasi,
@@ -296,6 +294,9 @@ router.put('/keluar/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), a
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima
     } = req.body;
 
     const timestamp = new Date(Date.now());
@@ -315,6 +316,9 @@ router.put('/keluar/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), a
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima,
       timestamp
     );
 

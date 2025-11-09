@@ -12,12 +12,37 @@ export const listUsers = async() : Promise<User[]> => {
       email: true,
       bidang: true,
       password: false,
-      role: false,
+      role: true,
       address: true,
       phone_number: true
     }
   });
 }
+
+export const addUser = async(
+  email: string,
+  name: string,
+  username: string,
+  bidang: Disposisi | null,
+  role: Role,
+  address: string | null,
+  phone_number: string | null,
+  password: string
+) : Promise<User | null> => {
+  return db.user.create({ 
+    data : {
+      name,
+      username,
+      email,
+      bidang,
+      role,
+      address,
+      phone_number,
+      password
+    }
+  });
+}
+
 
 export const getUser = async(id: string|undefined) : Promise<User | null> => {
   return db.user.findUnique({

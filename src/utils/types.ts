@@ -1,16 +1,25 @@
-import { Role, Disposisi, Status, AksesArsip, DispLanjutan } from '../utils/db.server';
+import { Role, Disposisi, Status } from '../utils/db.server';
 
 export type User = {
   id: string,
   email: string,
   name: string,
   username: string,
-  bidang: Disposisi | null,
+  bidang: Disposisi,
   password?: string,
   role?: Role,
   address: string | null,
-  phone_number: string | null
+  phone_number: string | null,
+  failedAttempts?: number;
+  lastAttempts?: Date | null;
 }
+
+export interface DisposisiItem {
+  tujuan: Disposisi;
+}
+
+// Tipe buat keseluruhan field disposisi di DataSurat
+export type DataSuratDisposisi = DisposisiItem[];
 
 export type DataSurat = {
   id: string,
@@ -19,12 +28,12 @@ export type DataSurat = {
   tanggal_diterima: Date,
   tanggal_surat: Date,
   kode: string,
-  no_agenda: string,
+  no_agenda: string | null,
   no_surat: string,
   hal: string,
   tanggal_waktu: Date,
   tempat: string,
-  disposisi: Disposisi,
+  disposisi: any,
   index: string | null,
   pengolah: string,
   sifat: string | null,
@@ -37,15 +46,12 @@ export type DataSurat = {
   disp_2_notes: string | null,
   disp_3_notes: string | null,
   disp_4_notes: string | null,
-  disp_lanjut: DispLanjutan | null,
+  disp_lanjut: string | null,
   tindak_lanjut_1: Date | null,
   tindak_lanjut_2: Date | null,
   tl_notes_1: string | null,
   tl_notes_2: string | null,
   status: Status | null,
-  dok_final: string | null,
-  dok_dikirim: Date | null,
-  tanda_terima: Date | null,
   timestamp: Date
 }
 
@@ -54,11 +60,11 @@ export type SuratKeluar = {
   nomor_urut: number,
   kode: string,
   klasifikasi: string,
-  no_register: string,
+  no_register: string | null,
   tujuan_surat: string | null,
   perihal: string,
   tanggal_surat: Date,
-  akses_arsip: AksesArsip,
+  akses_arsip: string | null,
   pengolah: Disposisi,
   pembuat: string | null,
   catatan: string | null,
@@ -66,5 +72,8 @@ export type SuratKeluar = {
   koreksi_1: string | null,
   koreksi_2: string | null,
   status: Status | null,
+  dok_final: string | null,
+  dok_dikirim: Date | null,
+  tanda_terima: Date | null,
   timestamp: Date
 }

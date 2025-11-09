@@ -1,4 +1,6 @@
 enum Status {
   Proses
   Selesai
+  Pending
+  Ditolak
 }

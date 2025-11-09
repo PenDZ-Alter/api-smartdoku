@@ -4,15 +4,14 @@ services:
   app:
     build:
       context: .
-      target: production-stage
+      target: production
       args:
         APP_ENV: production
     ports:
-      - "${PORT}:${PORT}"
+      - "3000:3000"
     environment:
       RUN_MIGRATIONS: "true"
     env_file:
       - .env.production
     volume:
-      - /volume1/docker/app:/app
       - /volume1/docker/data:/app/data

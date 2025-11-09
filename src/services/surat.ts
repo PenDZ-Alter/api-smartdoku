@@ -1,5 +1,5 @@
-import { db, DispLanjutan, Disposisi, Status, AksesArsip } from '../utils/db.server';
-import type { DataSurat, SuratKeluar } from '../utils/types';
+import { db, Disposisi, Status } from '../utils/db.server';
+import type { DataSurat, DataSuratDisposisi, DisposisiItem, SuratKeluar } from '../utils/types';
 
 /* Surat Masuk */
 export const listSuratMasuk = async (): Promise<DataSurat[]> => {
@@ -36,9 +36,6 @@ export const listSuratMasuk = async (): Promise<DataSurat[]> => {
         tl_notes_1: true,
         tl_notes_2: true,
         status: true,
-        dok_final: true,
-        dok_dikirim: true,
-        tanda_terima: true,
         timestamp: true
       }
     }
@@ -56,12 +53,11 @@ export const createSuratMasuk = async (
   tanggal_diterima: Date,
   tanggal_surat: Date,
   kode: string,
-  no_agenda: string,
   no_surat: string,
   hal: string,
   tanggal_waktu: Date,
   tempat: string,
-  disposisi: Disposisi,
+  disposisi: DataSuratDisposisi,
   index: string | null,
   pengolah: string,
   sifat: string | null,
@@ -74,15 +70,12 @@ export const createSuratMasuk = async (
   disp_2_notes: string | null,
   disp_3_notes: string | null,
   disp_4_notes: string | null,
-  disp_lanjut: DispLanjutan | null,
+  disp_lanjut: string | null,
   tindak_lanjut_1: Date | null,
   tindak_lanjut_2: Date | null,
   tl_notes_1: string | null,
   tl_notes_2: string | null,
-  status: Status | null,
-  dok_final: string | null,
-  dok_dikirim: Date | null,
-  tanda_terima: Date | null,
+  status: Status,
   timestamp: Date
 ): Promise<DataSurat> => {
   return db.dataSurat.create({
@@ -91,12 +84,11 @@ export const createSuratMasuk = async (
       tanggal_diterima,
       tanggal_surat,
       kode,
-      no_agenda,
       no_surat,
       hal,
       tanggal_waktu,
       tempat,
-      disposisi,
+      disposisi: JSON.parse(JSON.stringify(disposisi)),
       index,
       pengolah,
       sifat,
@@ -115,9 +107,6 @@ export const createSuratMasuk = async (
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
       timestamp
     }
   });
@@ -134,7 +123,7 @@ export const updateSuratMasuk = async (
   hal: string,
   tanggal_waktu: Date,
   tempat: string,
-  disposisi: Disposisi,
+  disposisi: DataSuratDisposisi,
   index: string | null,
   pengolah: string,
   sifat: string | null,
@@ -147,15 +136,12 @@ export const updateSuratMasuk = async (
   disp_2_notes: string | null,
   disp_3_notes: string | null,
   disp_4_notes: string | null,
-  disp_lanjut: DispLanjutan | null,
+  disp_lanjut: string | null,
   tindak_lanjut_1: Date | null,
   tindak_lanjut_2: Date | null,
   tl_notes_1: string | null,
   tl_notes_2: string | null,
-  status: Status | null,
-  dok_final: string | null,
-  dok_dikirim: Date | null,
-  tanda_terima: Date | null,
+  status: Status,
   timestamp: Date
 ): Promise<DataSurat> => {
   return db.dataSurat.update({
@@ -170,7 +156,7 @@ export const updateSuratMasuk = async (
       hal,
       tanggal_waktu,
       tempat,
-      disposisi,
+      disposisi: JSON.parse(JSON.stringify(disposisi)),
       index,
       pengolah,
       sifat,
@@ -189,9 +175,6 @@ export const updateSuratMasuk = async (
       tl_notes_1,
       tl_notes_2,
       status,
-      dok_final,
-      dok_dikirim,
-      tanda_terima,
       timestamp
     }
   });
@@ -223,6 +206,9 @@ export const listSuratKeluar = async() : Promise<SuratKeluar[]> => {
       koreksi_1: true,
       koreksi_2: true,
       status: true,
+      dok_final: true,
+      dok_dikirim: true,
+      tanda_terima: true,
       timestamp: true
     }
   });
@@ -237,11 +223,10 @@ export const getSuratKeluar = async(nomor_urut: number) : Promise<SuratKeluar|nu
 export const createSuratKeluar = async(
   kode: string,
   klasifikasi: string,
-  no_register: string,
   tujuan_surat: string | null,
   perihal: string,
   tanggal_surat: Date,
-  akses_arsip: AksesArsip,
+  akses_arsip: string,
   pengolah: Disposisi,
   pembuat: string | null,
   catatan: string | null,
@@ -249,13 +234,15 @@ export const createSuratKeluar = async(
   koreksi_1: string | null,
   koreksi_2: string | null,
   status: Status | null,
+  dok_final: string | null,
+  dok_dikirim: Date | null,
+  tanda_terima: Date | null,
   timestamp: Date
 ) : Promise<SuratKeluar|null> => {
   return db.suratKeluar.create({
     data: {
       kode,
       klasifikasi,
-      no_register,
       tujuan_surat,
       perihal,
       tanggal_surat,
@@ -267,6 +254,9 @@ export const createSuratKeluar = async(
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima,
       timestamp
     }
   });
@@ -280,7 +270,7 @@ export const updateSuratKeluar = async(
   tujuan_surat: string | null,
   perihal: string,
   tanggal_surat: Date,
-  akses_arsip: AksesArsip,
+  akses_arsip: string,
   pengolah: Disposisi,
   pembuat: string | null,
   catatan: string | null,
@@ -288,6 +278,9 @@ export const updateSuratKeluar = async(
   koreksi_1: string | null,
   koreksi_2: string | null,
   status: Status | null,
+  dok_final: string | null,
+  dok_dikirim: Date | null,
+  tanda_terima: Date | null,
   timestamp: Date
 ) : Promise<SuratKeluar|null> => {
   return db.suratKeluar.update({
@@ -307,6 +300,9 @@ export const updateSuratKeluar = async(
       koreksi_1,
       koreksi_2,
       status,
+      dok_final,
+      dok_dikirim,
+      tanda_terima,
       timestamp
     }
   });
@@ -315,5 +311,24 @@ export const updateSuratKeluar = async(
 export const deleteSuratKeluar = async(nomor_urut: number) : Promise<SuratKeluar|null> => {
   return db.suratKeluar.delete({
     where: { nomor_urut }
+  });
+}
+
+/* Utilities */
+export const addRegister = async(surat: SuratKeluar|null, no_register: string) : Promise<any|null> => {
+  if (!surat) return null;
+
+  return await db.suratKeluar.update({
+    where: { id: surat!.id },
+    data: { no_register },
+  });
+}
+
+export const addAgenda = async(surat: DataSurat|null, no_agenda: string) : Promise<any|null> => {
+  if (!surat) return null;
+
+  return await db.dataSurat.update({
+    where: { id: surat!.id },
+    data: { no_agenda },
   });
 }

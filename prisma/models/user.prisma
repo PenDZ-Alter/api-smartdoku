@@ -1,11 +1,15 @@
 model User {
-  id            String      @id @default(cuid())
-  name          String
-  username      String  
-  email         String      @unique
-  address       String?     @db.Text
-  password      String
-  bidang        Disposisi?
-  phone_number  String?
-  role          Role        @default(USER)
+  id              String      @id @default(cuid())
+  name            String
+  username        String      @unique
+  email           String      @unique
+  address         String?     @db.Text
+  password        String
+  bidang          Disposisi
+  phone_number    String?
+  role            Role        @default(USER)
+  failedAttempts  Int         @default(0)
+  lastAttempts    DateTime?
+
+  logs            Log[]
 }

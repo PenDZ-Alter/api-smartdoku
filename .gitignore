@@ -38,3 +38,8 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 /src/@generated/prisma
 /prisma/migrations
 .tree
+temp
+data/*
+
+# Excludes backup files
+*.bak

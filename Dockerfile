@@ -8,6 +8,7 @@ COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
 COPY prisma ./prisma
+
 COPY . .
 
 RUN bun run generate:prod
@@ -18,7 +19,7 @@ RUN bun run generate:prod
 FROM oven/bun:1.1.13-slim AS production
 WORKDIR /app
 
-COPY --from=builder /app .
+COPY --from=builder /app ./
 COPY .env.production .
 
 ARG APP_ENV=production
@@ -29,6 +30,7 @@ EXPOSE ${PORT:-3000}
 CMD ["sh", "-c", "\
   if [ \"$RUN_MIGRATIONS\" = \"true\" ]; then \
     set -e; \
+    bun run migrate; \
     bun run migrate:prod; \
   fi && \
   bun run prod \
