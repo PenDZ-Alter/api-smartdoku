@@ -9,7 +9,9 @@ export type User = {
   password?: string,
   role?: Role,
   address: string | null,
-  phone_number: string | null
+  phone_number: string | null,
+  failedAttempts?: number;
+  lastAttempts?: Date | null;
 }
 
 export interface DisposisiItem {
