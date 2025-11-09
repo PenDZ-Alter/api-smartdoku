@@ -50,7 +50,7 @@ router.get("/surat/masuk", authMiddleware, requireRole('USER', 'ADMIN', 'SUPERAD
       },
     });
   } catch (err) {
-    console.error("[ERR->STATS]", err);
+    if (CLI_ARGS.debug) console.error("[ERR->STATS]", err);
     res.status(500).json({
       success: false,
       message: "Gagal mengambil statistik surat!",
@@ -93,7 +93,7 @@ router.get("/surat/keluar", authMiddleware, requireRole('USER', 'ADMIN', 'SUPERA
       },
     });
   } catch (err) {
-    console.error("[ERR->STATS]", err);
+    if (CLI_ARGS.debug) console.error("[ERR->STATS]", err);
     res.status(500).json({
       success: false,
       message: "Gagal mengambil statistik surat!",
