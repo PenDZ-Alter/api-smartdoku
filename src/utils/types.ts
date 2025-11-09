@@ -5,7 +5,7 @@ export type User = {
   email: string,
   name: string,
   username: string,
-  bidang: Disposisi | null,
+  bidang: Disposisi,
   password?: string,
   role?: Role,
   address: string | null,

@@ -5,7 +5,9 @@ model User {
   email         String      @unique
   address       String?     @db.Text
   password      String
-  bidang        Disposisi?
+  bidang        Disposisi
   phone_number  String?
   role          Role        @default(USER)
+
+  logs          Log[]
 }

@@ -4,6 +4,7 @@ import suratRoutes from './routes/surat';
 import userRoutes from './routes/user';
 import uploadRoutes from './routes/upload';
 import downloadRoutes from './routes/download';
+import statsRoutes from './routes/stats';
 import { logger } from './middleware/logger';
 import { errorHandler } from './middleware/errorHandler';
 import { CLI_ARGS } from './services/args';
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/surat', suratRoutes);
 app.use('/users', userRoutes);
+app.use('/stats', statsRoutes);
 
 app.get('/', async (req, res) => {
   res.send("API is Active!!");

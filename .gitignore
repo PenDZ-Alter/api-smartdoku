@@ -40,3 +40,6 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .tree
 temp
 data/*
+
+# Excludes backup files
+*.bak
