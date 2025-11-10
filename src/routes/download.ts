@@ -8,6 +8,7 @@ import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';
 import { exec } from "child_process";
+import { CLI_ARGS } from '../services/args';
 
 const router = express.Router();
 
@@ -120,8 +121,8 @@ router.get('/disposisi/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN')
   });
   
   pdfStream.on("error", (err) => {
-    console.error("Stream error:", err);
-    res.status(500).end("Failed to send PDF");
+    if (CLI_ARGS.debug) console.error("Stream error:", err);
+    return res.status(500).json("Failed to send PDF");
   });
 
   pdfStream.pipe(res);
