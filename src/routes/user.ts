@@ -18,6 +18,10 @@ router.post('/', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => 
   const { name, username, email, password, bidang, role, address, phone_number } = req.body;
   const hashed = await bcrypt.hash(password, 10);
 
+  if (role == 'SUPERADMIN' || role == 'SuperAdmin') {
+    return res.status(403).json({ message: "Changing role to Superadmin is prohibited!" });
+  }
+
   const users = await UserService.addUser(email, name, username, bidang, role, address, phone_number, hashed);
 
   if (!users) return res.status(401).json({ message: "No user are registered!" });
@@ -37,6 +41,10 @@ router.get('/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res) =
 router.put('/:id', authMiddleware, requireRole('SUPERADMIN'), async (req, res) => {
   const id = req.params.id;
   const { name, username, email, role, address, phone_number, bidang } = req.body;
+
+  if (role == 'SUPERADMIN' || role == 'SuperAdmin') {
+    return res.status(403).json({ message: "Changing role to Superadmin is prohibited!" });
+  }
 
   const user = await UserService.updateUser(id, email, name, username, bidang, role, address, phone_number);
 
