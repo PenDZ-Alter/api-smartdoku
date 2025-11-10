@@ -5,8 +5,13 @@ import { db } from '../utils/db.server';
 import ExcelJS from 'exceljs';
 import * as SuratService from '../services/surat';
 import path from 'path';
+import fs from 'fs';
+import { promisify } from 'util';
+import { exec } from "child_process";
 
 const router = express.Router();
+
+const execAsync = promisify(exec);
 
 router.get('/surat/masuk/:num', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADMIN'), async (req, res) => {
   const nu_num = Number(req.params.num);
@@ -56,12 +61,22 @@ router.get('/disposisi/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN')
   if (!data) return res.status(400).json({ message: "Data not found!" });
 
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.readFile("docs/template_disposisi.xlsx");
+  await workbook.xlsx.readFile("docs/template_disposisi_v2.xlsx");
 
   const worksheet = workbook.getWorksheet('disposisi');
 
   if (!worksheet) return res.status(500).json({ message: "Unaccessable data!" });
 
+  // === Simpan sementara file XLSX ===
+  const tmpDir = path.join(__dirname, "../temp");
+  if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
+
+  console.log(`[DEBUG] -> [STATE] : Temp Dir Path : ${tmpDir}`);
+
+  const xlsxPath = path.join(tmpDir, `disposisi_${nomor_urut}.xlsx`);
+  const pdfPath = path.join(tmpDir, `disposisi_${nomor_urut}.pdf`);
+
+  
   worksheet.getCell("C10").value = data?.nama_surat ?? "-";
   worksheet.getCell("G10").value = data?.tanggal_diterima ?? "-";
   worksheet.getCell("C12").value = data?.tanggal_surat ?? "-";
@@ -71,16 +86,45 @@ router.get('/disposisi/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN')
   worksheet.getCell("C15").value = data?.tanggal_waktu ?? "-";
   worksheet.getCell("C16").value = data?.tanggal_waktu ?? "-";
   worksheet.getCell("C17").value = data?.tempat ?? "-";
+  
+  await workbook.xlsx.writeFile(xlsxPath);
 
-  // kirim hasil ke client (download)
+  // === Convert XLSX ke PDF pakai LibreOffice (headless mode) ===
+  const cmd = `libreoffice --headless --convert-to pdf "${xlsxPath}" --outdir "${tmpDir}"`;
+  await execAsync(cmd);
+
+  // === Tunggu sampai file PDF benar-benar muncul ===
+  let maxWait = 20; // maksimal 2 detik (20 x 100ms)
+  while (!fs.existsSync(pdfPath) && maxWait > 0) {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    maxWait--;
+  }
+
+  if (!fs.existsSync(pdfPath)) {
+    console.error("[ERR] Failed when converting by LibreOffice");
+    return res.status(500).json({ message: "Gagal membuat file PDF" });
+  }
+
+  // === Kirim hasil ke client (download) ===
   res.setHeader(
     "Content-Disposition",
-    `attachment; filename=disposisi_${nomor_urut}.xlsx`
+    `attachment; filename=disposisi_${nomor_urut}.pdf`
   );
-  res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+  res.setHeader("Content-Type", "application/pdf");
 
-  await workbook.xlsx.write(res);
-  res.end();
+  const pdfStream = fs.createReadStream(pdfPath);
+  
+  pdfStream.on("close", () => {
+    fs.unlink(xlsxPath, () => {});
+    fs.unlink(pdfPath, () => {});
+  });
+  
+  pdfStream.on("error", (err) => {
+    console.error("Stream error:", err);
+    res.status(500).end("Failed to send PDF");
+  });
+
+  pdfStream.pipe(res);
 });
 
 export default router;
