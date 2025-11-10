@@ -19,6 +19,14 @@ RUN bun run generate:prod
 FROM oven/bun:1.1.13-slim AS production
 WORKDIR /app
 
+# Install dependencies (libreoffice + fonts)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libreoffice \
+    libreoffice-writer \
+    libreoffice-calc \
+    fonts-dejavu-core \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /app ./
 COPY .env.production .
 
