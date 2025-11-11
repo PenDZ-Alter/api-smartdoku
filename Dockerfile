@@ -20,18 +20,23 @@ FROM oven/bun:1.1.13-slim AS production
 WORKDIR /app
 
 # Install dependencies (libreoffice + fonts)
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     libreoffice \
-    libreoffice-writer \
-    libreoffice-calc \
-    fonts-dejavu-core \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    fonts-dejavu \
+    fonts-liberation \
+    fonts-noto-core \
+    fonts-noto-cjk \
+    locales \
+ && locale-gen en_US.UTF-8 id_ID.UTF-8 \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app ./
 COPY .env.production .
 
 ARG APP_ENV=production
 ENV NODE_ENV=${APP_ENV}
+ENV LANG=id_ID.UTF-8
+ENV LC_ALL=id_ID.UTF-8
 
 EXPOSE ${PORT:-3000}
 
