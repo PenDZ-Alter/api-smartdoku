@@ -41,22 +41,44 @@ const prisma = base.$extends({
             (typeof args === "object" && "where" in args ? (args as any)?.where?.id : undefined) ??
             "-";
 
+          // 🔹 Ambil nama surat/perihal berdasarkan model
+          let namaSurat: string | null = null;
+          try {
+            if (model === "DataSurat" && targetId && targetId !== "-") {
+              const surat = await base.dataSurat.findUnique({
+                where: { id: targetId },
+                select: { nama_surat: true },
+              });
+              namaSurat = surat?.nama_surat ?? null;
+            } else if (model === "SuratKeluar" && targetId && targetId !== "-") {
+              const surat = await base.suratKeluar.findUnique({
+                where: { id: targetId },
+                select: { perihal: true },
+              });
+              namaSurat = surat?.perihal ?? null;
+            }
+          } catch (err) {
+            console.error("[ERR->LOG] Gagal ambil nama surat:", err);
+          }
+
           // 🔹 Buat deskripsi log
           const details =
             action === "CREATE"
-              ? `User ${userName} menambah ${jenis} dengan ID ${targetId}`
+              ? `User ${userName} menambah ${jenis} dengan perihal ${namaSurat}`
               : action === "UPDATE"
-              ? `User ${userName} mengubah ${jenis} dengan ID ${targetId}`
-              : `User ${userName} menghapus ${jenis} dengan ID ${targetId}`;
+              ? `User ${userName} mengubah ${jenis} dengan perihal ${namaSurat}`
+              : `User ${userName} menghapus ${jenis} dengan perihal ${namaSurat}`;
 
           // 🔹 Simpan log ke database
           await base.log.create({
             data: {
-              userId, // wajib, karena non-nullable
+              userId,
               action,
               model,
               modelId: targetId,
               details,
+              dataSuratId: model === "DataSurat" ? targetId : null,
+              suratKeluarId: model === "SuratKeluar" ? targetId : null,
             },
           });
 

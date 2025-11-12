@@ -72,7 +72,7 @@ router.get('/disposisi/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN')
   const tmpDir = path.join(__dirname, "../temp");
   if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
 
-  console.log(`[DEBUG] -> [STATE] : Temp Dir Path : ${tmpDir}`);
+  if (CLI_ARGS.debug) console.log(`[DEBUG] -> [STATE] : Temp Dir Path : ${tmpDir}`);
 
   const xlsxPath = path.join(tmpDir, `disposisi_${nomor_urut}.xlsx`);
   const pdfPath = path.join(tmpDir, `disposisi_${nomor_urut}.pdf`);

@@ -1,11 +1,15 @@
 model Log {
-  id        String    @id @default(cuid())
-  userId    String
-  action    String   
-  model     String?   
-  modelId   String?   
-  timestamp DateTime  @default(now())
-  details   String?   
+  id              String        @id @default(cuid())
+  userId          String
+  action          String   
+  model           String?   
+  modelId         String?   
+  details         String?   
+  dataSuratId     String?     
+  suratKeluarId   String?
+  timestamp       DateTime      @default(now())
   
-  user      User      @relation(fields: [userId], references: [id])
+  user            User          @relation(fields: [userId], references: [id])
+  suratKeluar     SuratKeluar?  @relation(fields: [suratKeluarId], references: [id])
+  dataSurat       DataSurat?    @relation(fields: [dataSuratId], references: [id])
 }

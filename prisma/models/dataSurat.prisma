@@ -30,4 +30,6 @@ model DataSurat {
   tl_notes_2        String?         @db.Text
   status            Status          @default(Pending)
   timestamp         DateTime
+
+  logs              Log[]
 }

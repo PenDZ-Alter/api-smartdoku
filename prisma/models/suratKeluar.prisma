@@ -19,4 +19,6 @@ model SuratKeluar {
   dok_dikirim       DateTime?       @db.Date
   tanda_terima      DateTime?       @db.Date
   timestamp         DateTime
+
+  logs              Log[]
 }
