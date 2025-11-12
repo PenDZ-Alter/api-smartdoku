@@ -196,11 +196,6 @@ router.delete('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'),
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
-  
-      await db.dataSurat.update({
-        where: { nomor_urut: data?.nomor_urut },
-        data: { link_scan: null },
-      });
     }
 
     return res.status(200).json({ message: "Surat Masuk Deleted Successfully!", data: { id: data?.id, nomor_urut: data?.nomor_urut } });
@@ -349,6 +344,13 @@ router.delete('/keluar/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN')
   try {
     const nomor_urut = Number(req.params.num);
     const data = await SuratService.deleteSuratKeluar(nomor_urut);
+
+    if (data?.dok_final) {
+      const filePath = path.join(__dirname, '../..', data?.dok_final);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
 
     return res.status(200).json({ message: "Surat Keluar deleted Successfully!", data: { id: data?.id, nomor_urut: data?.nomor_urut } });
   } catch (err) {
