@@ -23,7 +23,7 @@ export const addUser = async(
   email: string,
   name: string,
   username: string,
-  bidang: Disposisi | null,
+  bidang: Disposisi,
   role: Role,
   address: string | null,
   phone_number: string | null,
@@ -55,7 +55,7 @@ export const updateUser = async(
   email: string,
   name: string,
   username: string,
-  bidang: Disposisi | null,
+  bidang: Disposisi,
   role: Role,
   address: string | null,
   phone_number: string | null

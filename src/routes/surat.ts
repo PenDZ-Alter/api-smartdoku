@@ -3,6 +3,9 @@ import * as SuratService from '../services/surat';
 import { requireRole } from '../middleware/requireRole';
 import { CLI_ARGS } from '../services/args';
 import { authMiddleware } from '../middleware/auth';
+import { db } from '../utils/db.server';
+import fs from 'fs';
+import path from 'path';
 
 const router = express.Router();
 
@@ -187,6 +190,18 @@ router.delete('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'),
   try {
     const nomor_urut = Number(req.params.num);
     const data = await SuratService.deleteSuratMasuk(nomor_urut);
+
+    if (data?.link_scan) {
+      const filePath = path.join(__dirname, '../..', data.link_scan);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+  
+      await db.dataSurat.update({
+        where: { nomor_urut: data?.nomor_urut },
+        data: { link_scan: null },
+      });
+    }
 
     return res.status(200).json({ message: "Surat Masuk Deleted Successfully!", data: { id: data?.id, nomor_urut: data?.nomor_urut } });
   } catch (err) {
