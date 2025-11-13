@@ -16,6 +16,11 @@ const prisma = base.$extends({
         const context = prismaContext.getStore();
         const userId = context?.id ?? null;
 
+        if (CLI_ARGS.debug) console.log(`[DEBUG] -> [STATE] :: Skip logging? = ${context?.skipLogging}`);
+        if (context?.skipLogging || (args as any)?.skipLog === true || (args as any)?.skipLogging) {
+          return query(args);
+        }
+
         // 🔹 Daftar model yang dilog
         const loggedModels = ["DataSurat", "SuratKeluar"];
         const writeOps = ["create", "update", "delete"];

@@ -3,9 +3,9 @@ import * as SuratService from '../services/surat';
 import { requireRole } from '../middleware/requireRole';
 import { CLI_ARGS } from '../services/args';
 import { authMiddleware } from '../middleware/auth';
-import { db } from '../utils/db.server';
 import fs from 'fs';
 import path from 'path';
+import { prismaContext } from '../utils/context';
 
 const router = express.Router();
 
@@ -99,7 +99,10 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
       timestamp);
 
     const no_register = `${kode}/${String(data!.nomor_urut)}/${suffix_code}`;
-    await SuratService.addAgenda(data, no_register);
+
+    await prismaContext.run({ skipLogging: true }, async () => {
+      await SuratService.addAgenda(data, no_register);
+    });
 
     return res.status(200).json({ message: "Successfully adding data!", data: data });
   } catch (err) {
@@ -276,7 +279,10 @@ router.post('/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async
     );
 
     const no_register = `${kode}/${String(data!.nomor_urut)}/${suffix_code}`;
-    await SuratService.addRegister(data, no_register);
+
+    await prismaContext.run({ skipLogging: true }, async () => {
+      await SuratService.addRegister(data, no_register);
+    });
 
     return res.status(200).json(data);
   } catch (err) {
