@@ -6,6 +6,7 @@ import { authMiddleware } from '../middleware/auth';
 import fs from 'fs';
 import path from 'path';
 import { prismaContext } from '../utils/context';
+import { limitUpdateFields, onlySekretariatDelete, allowCreateIfSekretariat } from "../handlers/suratAccess";
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ router.get('/masuk/:num', authMiddleware, requireRole('USER', 'ADMIN', 'SUPERADM
   }
 });
 
-router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
+router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), allowCreateIfSekretariat, async (req, res) => {
   try {
     const {
       nama_surat,
@@ -112,7 +113,7 @@ router.post('/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async 
   }
 });
 
-router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
+router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), limitUpdateFields, async (req, res) => {
   try {
     const nomor_urut = Number(req.params.num);
     const { 
@@ -189,7 +190,7 @@ router.put('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), as
   }
 });
 
-router.delete('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), async (req, res) => {
+router.delete('/masuk/:num', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), onlySekretariatDelete, async (req, res) => {
   try {
     const nomor_urut = Number(req.params.num);
     const data = await SuratService.deleteSuratMasuk(nomor_urut);

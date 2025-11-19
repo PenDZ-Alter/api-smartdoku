@@ -7,7 +7,7 @@ import downloadRoutes from './routes/download';
 import statsRoutes from './routes/stats';
 import logRoutes from './routes/logs';
 import { logger } from './middleware/logger';
-import { errorHandler } from './middleware/errorHandler';
+import { errorHandler } from './handlers/error';
 import { CLI_ARGS } from './services/args';
 import dotenv from 'dotenv';
 

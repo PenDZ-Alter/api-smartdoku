@@ -24,7 +24,7 @@ const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.
   if (allowedExtensions.includes(ext)) {
     cb(null, true);
   } else {
-    cb(new Error(`Only these file types are allowed: ${allowedExtensions.join(', ')}`));
+    cb(new Error(`The extension of the file is not allowed!`));
   }
 };
 

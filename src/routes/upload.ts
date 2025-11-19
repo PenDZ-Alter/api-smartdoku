@@ -6,10 +6,11 @@ import fs from 'fs';
 import path from 'path';
 import { authMiddleware } from '../middleware/auth';
 import { requireRole } from '../middleware/requireRole';
+import { uploadSetup } from '../handlers/upload';
 
 const router = express.Router();
 
-router.post('/surat/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
+router.post('/surat/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, uploadSetup, async (req, res) => {
   const { nomor_urut } = req.body;
   const nu_num = Number(nomor_urut);
   const file = req.file;
@@ -44,7 +45,7 @@ router.post('/surat/masuk', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), 
   }
 });
 
-router.post('/surat/masuk/edit', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
+router.post('/surat/masuk/edit', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, uploadSetup, async (req, res) => {
   const { nomor_urut } = req.body;
   const nu_num = Number(nomor_urut);
   const file = req.file;
@@ -89,7 +90,7 @@ router.post('/surat/masuk/edit', authMiddleware, requireRole('ADMIN', 'SUPERADMI
   }
 });
 
-router.post('/surat/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
+router.post('/surat/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, uploadSetup, async (req, res) => {
   const { nomor_urut } = req.body;
   const nu_num = Number(nomor_urut);
   const file = req.file;
@@ -127,7 +128,7 @@ router.post('/surat/keluar', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'),
   }
 });
 
-router.post('/surat/keluar/edit', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, upload.single('file'), async (req, res) => {
+router.post('/surat/keluar/edit', authMiddleware, requireRole('ADMIN', 'SUPERADMIN'), ensureUploadFolder, uploadSetup, async (req, res) => {
   const { nomor_urut } = req.body;
   const nu_num = Number(nomor_urut);
   const file = req.file;
